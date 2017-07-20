@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var Check = require('../models/check');
-var OrderItem = require('../models/orderitem');
 
 module.exports.createCheck = function (req, res) {
 
