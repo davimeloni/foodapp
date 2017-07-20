@@ -1,0 +1,49 @@
+
+<div class="container" controller="createItemController">
+    <form>
+        <div class="">
+            <h3>Item Detail</h3>
+        </div>
+
+        <div style="display: inline">
+            <a href="#">
+            <img class="media-object img-thumbnail" ng-src={{dish.image}} alt="Uthappizza" width="70" height="70">
+            
+            </a> | {{itemToAdd.name}}
+        </div>
+
+        <br/> {{itemToAdd.description}}
+
+        <br/>
+
+        <ul>
+            <br/>
+            <strong>Additionals</strong>
+            <br/>
+            <li ng-repeat="additional in additionals">
+                {{additional.name}}, {{additional.price | currency}}
+                <input type="checkbox" ng-model="additional" style="float: right">
+            </li>
+        </ul>
+
+        <br/>
+
+        Comments:
+        <input type="text" aria-label="Comments">
+
+        <br/> 
+        <br/>
+
+        {{itemToAdd.price | currency }} ...................... - 1 +
+
+        <br/> 
+        
+        total = {{ getTotal() }}
+
+        <br/>
+
+        <button type="submit" value="addToCart()">Add to Cart</button>
+
+    </form>
+
+</div>

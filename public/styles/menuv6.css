@@ -1,0 +1,213 @@
+
+/*body {
+ background-color:#fafafa !important; 
+ 
+}*/
+
+
+/* header */
+
+header{
+    background-color: blue !important; 
+    position:fixed; 
+    z-index:5;
+    top:0; left:0;
+    width:100%;
+    height:70px;
+    padding-top: 10;
+    padding-bottom: 10;
+    box-shadow: 0ex;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*footer*/
+footer {
+    position:fixed; 
+    z-index:5;
+    bottom:0; left:0;
+    width:100%;
+    height:80px;
+    padding:0;
+    
+}
+
+#bottomNav {
+    
+	padding:0;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+#bottomNav a {
+    font-size:10px;
+    text-align: center;
+    color:#ddd;
+    text-decoration:none;
+}
+#bottomNav a:hover {
+    color:#fff;
+}
+
+/*no margin no padding*/
+
+body,ul,li {
+    padding:0;
+    margin:0;
+    border:0;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+body {
+    font-family:helvetica;
+}
+
+/* custom inclusion of right tabs */
+
+			.tabbed {
+                background-color: aqua;
+                
+				margin-top: 70px;
+                margin-bottom: 48px;
+
+                -webkit-overflow-scrolling:touch;
+                overflow:auto;
+                
+				height: 200%;
+				
+				transition: border 250ms ease;
+                width: 180%;
+
+			}
+			.tabbed ul {
+				
+				float: none;
+				list-style-type: none;
+                height: 200%;
+
+			}
+
+			.tabbed ul li {
+				display: block;
+                padding: 7px 12px 7px; 
+				background-color: #FFF;
+                text-align: center;
+
+                margin-bottom: 20px;
+				
+                height: 80px;
+
+                width: 95%;
+                
+				position: relative;
+				cursor: pointer;
+				color: #777;
+                writing-mode: tb-rl;
+				font: 600 10px/16px roboto, "Open Sans", Helvetica, sans-serif;
+                font-size: 3vw;
+				transition: all 250ms ease;
+                z-index: 2;
+                background-color:#fafafa;
+			}
+
+            .tabbed ul li:before,
+			.tabbed ul li:after {
+				display: block;
+				content: " ";
+				position: absolute;
+                margin-top: 5px;
+				height: 37%;
+				width: 100%; 	
+				background-color: #FFF;
+				transition: all 250ms ease;
+                background-color:#fafafa;
+			}
+			.tabbed ul li:before {
+                right: 0;
+				top: -22px;
+				transform: skew(0deg, 30deg);
+				box-shadow: rgba(0,0,0,.1) 0px -2px 5px 0px, inset rgba(255,255,255,.09) 1px 0;
+                border-radius: 0 8px 0 0;
+               
+			}
+
+			.tabbed ul li:after {
+                right: 0;
+				bottom: -18px;
+				transform: skew(0deg, -30deg);
+				box-shadow: rgba(0,0,0,.1) -2px 2px 5px, inset rgba(255,255,255,.09) 1px 0;
+                border-radius: 0 0 8px 0;
+			}
+			.tabbed ul li:hover,
+			.tabbed ul li:hover:after,
+            .tabbed ul li:hover:before {
+				background-color: #F4F7F9;
+				color: #444;
+
+			}
+
+            .tabbed ul li.active {
+				z-index: 4;
+			}
+
+			.tabbed ul li.active,
+			.tabbed ul li.active:before,
+			.tabbed ul li.active:after {
+				background-color: ghostwhite;
+				color: #fff;
+			}
+
+
+
+/*list menu*/
+
+.tab-content {
+    z-index:1;
+    -webkit-overflow-scrolling:touch;
+    overflow:auto;
+    padding: 70px 0 48px 0;
+    
+}
+
+.tabs-right > .col-xs-11 > .tab-content > ul {
+    list-style:none;
+    text-align:left;
+    
+}
+
+.tabs-right > .col-xs-11 > .tab-content > ul > li {
+    height: 100px;
+    padding-top: 5px;
+    padding-right: 8px;
+    line-height:100px;
+    border-top:1px #fff;
+    background-color:#fafafa;
+    font-size:14px;
+
+    display: block;
+    z-index: 2;
+    font: 600 8px roboto, "Open Sans", Helvetica, sans-serif;
+}
+
+.tabs-right > .col-xs-11 > .tab-content > ul > li > .media > .media-body {
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    word-wrap: break-word;
+}
+
+
+
+
+
+
+

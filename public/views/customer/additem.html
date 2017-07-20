@@ -1,0 +1,44 @@
+<div class="container" controller="addItemController">
+
+    <form class="form-horizontal" ng-submit="addItem(itemToAdd)">
+
+        <div class="">
+            <h3>Item Detail</h3>
+        </div>
+
+        <div style="display: inline">
+            <a href="#">
+            <img class="media-object img-thumbnail" ng-src={{itemToAdd.image}} alt="itemimage" width="70" height="70">
+            
+            </a> | {{itemToAdd.name}}
+        </div>
+
+        <br/> {{itemToAdd.description}}
+
+        <br/> {{itemToAdd.price | currency }} ...................... - 1 +
+
+        <br/>
+
+        <ul>
+            <br/>
+            <strong>Additionals</strong>
+            <br/>
+            <li ng-repeat="additional in additionals">
+                {{additional.name}}, {{additional.price | currency}}
+                <input type="checkbox" ng-model="additional" style="float: right">
+            </li>
+        </ul>
+
+        <br/> total =
+
+        <br/>
+
+        <div class="form-group ">
+            <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block login-button" id="button">
+        </div>
+
+    </form>
+
+
+
+</div>

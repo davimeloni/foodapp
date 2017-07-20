@@ -1,0 +1,78 @@
+Davi
+Interface Cliente
+{
+    tela login,
+    tela home,
+    tela menu {
+        cardapio,
+        pedido / conta,
+        social(facebook)
+    }
+}
+
+Jorge
+Interface Restaurante
+{
+    tela login,
+    cadastro usuario,
+    cadastro produto,
+    associação mesa / usuario (recepcionista),
+    gerenciamento de pedido/conta (fechar conta, alterar, remover pedido)
+    
+}
+
+----------------------------------
+logica
+----------------------------------
+
+Entidades:
+{
+    prato: {
+        nome,
+        descrição,
+        preço,
+        categoria,
+        imagem,
+		status (e data),
+        label (Novo, promoção, picante...),
+        featured (aparecer na Home)
+    },
+
+    usuario: {
+        nome,
+        username,
+        senha,
+		email,
+        tipo: (admin, funcionario, cliente),
+    },
+
+    contas: {
+        contador,
+        usuario,
+        data,
+        pedidos[],
+        preço,
+        status(abre, cancela, envia pagto, aguarda pagto, finalizada)
+    },
+
+    pedido: {
+        contador,
+        itens,
+        preço,
+        status(para abrir, reabrir ou alterar pedido): boolean,
+        confirmar-pedido: boolean,
+        fechar-conta: boolean,
+        mesa,
+        garçom,
+        usuario,
+		data
+    },
+
+    mesa: {
+        mesa,
+        limite usuarios,
+        usuarios,
+		status: (ocupada, livre)
+        garçom
+    }
+}

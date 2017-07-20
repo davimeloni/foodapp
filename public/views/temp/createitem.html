@@ -1,0 +1,73 @@
+
+
+<div class="container" id="createitem">
+
+    <div class="row main">
+        <div class="main-login main-center">
+
+            <h1>Register Item</h1>
+ 
+            <form class="form-horizontal" ng-submit="registerItem()" ng-controller="createItemController">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Name: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input ng-model="item.name" type="text" id="name" placeholder="Enter item name" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="cols-sm-2 control-label">Description: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input ng-model="item.description" type="text" id="description" placeholder="Enter item description" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class="cols-sm-2 control-label">Price: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input ng-model="item.price" type="number" id="price" value="100.00" min="0" step="0.01" placeholder="Enter item price" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="cols-sm-2 control-label">Category: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select id="category" ng-model="item.selectedCategory" ng-options="c.category for c in categories" ng-change="item.selectedCategory"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="type" class="cols-sm-2 control-label">Type: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select id="type" ng-model="item.selectedCategoryType" ng-disabled="!item.selectedCategory" ng-options="key as value for (key, value) in item.selectedCategory.categorytype"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image" class="cols-sm-2 control-label">Item image: </label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="file" ng-model="item.image" id="image" placeholder="upload item image" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block login-button" id="button">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
