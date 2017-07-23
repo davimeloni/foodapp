@@ -37,20 +37,36 @@ function categoryService($http) {
 
 //Services for table
 
-//Services for check
-angular.module('foodapp').service('checkService', checkService);
-function checkService($http) {
-    this.createCheck = function(check) {
-        return $http.post('/check').then(complete).catch(failed);
+//Services for account
+angular.module('foodapp').service('accountService', accountService);
+function accountService($http) {
+    this.createAccount = function(account) {
+        return $http.post('/account').then(complete).catch(failed);
     };
 
-    //this.getCheck = function() {
-    //    return
-    //}
+    this.getAccount = function(accountId) {
+        return $http.get('/account/' + accountId).then(complete).catch(failed);
+    }
 
-    this.updateItemCheck = function(check) {
-        return $http.put('/check/' + check._id + '/item/', check).then(complete).catch(failed);
+    this.addItemAccount = function(account) {
+        return $http.put('/account/' + account._id + '/additem', account).then(complete).catch(failed);
     };
+
+    this.updateItensAccount = function(orderData) {
+        return $http.put('/account/' + orderData.accountId + '/updateitens', orderData).then(complete).catch(failed);
+    };
+
+    this.removeItemAccount = function(removeData) {
+        return $http.delete('/account/' + removeData.accountId + '/item/' + removeData.itemId).then(complete).catch(failed);
+    }
+
+    this.getAccountsKitchen = function() {
+        return $http.get('/accountskitchen').then(complete).catch(failed);
+    }
+
+    this.getItensAccountsByStatus = function() {
+        return $http.get('/accountstatus').then(complete).catch(failed);
+    }
 
 }
 

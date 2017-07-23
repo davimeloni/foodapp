@@ -39,6 +39,15 @@ app.controller('manageItemController', ['$modal', '$scope', '$location', '$state
         $state.reload();
     }
 
+    $scope.test = function () {
+
+        var modalInstance3 = $modal.open({
+            controller: "testController",
+            templateUrl: "test.html",
+            resolve: {}
+        });
+    }
+
 }]);
 
 app.controller('createItemController', ['$scope', '$modalInstance','$state', 'categoryService', 'itemService', function ($scope, $modalInstance, $state, categoryService, itemService) {
@@ -132,4 +141,8 @@ app.controller('editItemController', ['$scope', '$modalInstance', '$state', 'cat
         $state.reload();
     }
     
+}]);
+
+app.controller('testController', ['$scope', '$modalInstance','$state', 'categoryService', 'itemService', function ($scope, $modalInstance, $state, categoryService, itemService) {
+
 }]);

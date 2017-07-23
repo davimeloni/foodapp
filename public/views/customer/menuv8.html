@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="styles/bootstrap-social.css" rel="stylesheet">
-    <link href="styles/menuv6.css" rel="stylesheet">
+    <link href="styles/menuv8.css" rel="stylesheet">
     <link href="dependencies/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dependencies/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="dependencies/bootstrap/dist/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -19,18 +19,26 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <form class="form-inline" role="form">
-                    <div class="form-group">
+                    <div class="form-group" id="headerContent">
 
-                        <span style="float: left; padding-top: 12px" class="glyphicon glyphicon-home" id="login">
-                            <br>Home
-                        </span>
+                        <div class="col-xs-4 col-md-4">
+                            <span id="homeicon" class="glyphicon glyphicon-home" style="padding-top: 10px">
+                                <br/>
+                                Home(logo)
+                            </span>
+                        </div>
 
-                        <span style="margin-left: 70px; text-align: center"><img src="images/menuicon.png" width="70" height="50" alt="menuicon"/></span>
+                        <div class="col-xs-4 col-md-4">
+                            <span id="menuicon"><img src="images/menuicon.png" width="70" height="50" alt="menuicon"/></span>
+                        </div>
 
-                        <span style="float: right; font-size: 10px; padding-right: 10px; padding-top: 2px; text-align: right"><img src="images/conta.png" width="20" height="20" alt="garcom"/>
-                            <br>Pedido
-                            <br><span style="color: red"> R$ 0,00 </span> / <strong> R$ 0,00 </strong>
-                        </span>
+                        <div class="col-xs-4 col-md-4">
+                            <span id="accounticon" style="float: right; padding-top: 8px">
+                                <img style="margin-left: 8px;" src="images/conta.png" width="20" height="20" alt="account" ng-click="openAccount()"/>
+                                <br/>
+                                Conta
+                            </span>
+                        </div>
 
                     </div>
                 </form>
@@ -38,9 +46,7 @@
         </div>
     </header>
 
-
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx content xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
 
     <div id="container" ng-controller="menuController">
         <div class="row no-gutter">
@@ -49,26 +55,25 @@
                 <div class="col-xs-11 col-md-11">
                     <div class="tab-content" id="tab-content">
                         <ul class="media-list tab-pane fade in active">
-                            <li class="media" ng-repeat="dish in dishes">
+                            <li class="media" ng-repeat="item in itens | filter: {categorytype: selectedCategoryType}">
                                 <div class="media-heading">
-                                    <span>{{dish.name}}</span>
-                                    <span style="float: right">{{dish.price | currency}}</span>
+                                    <span>{{item.name}}</span>
+                                    <span style="float: right">{{item.price | currency}}</span>
                                 </div>
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object img-thumbnail" ng-src={{dish.image}} alt="Uthappizza" width="70" height="70">
+                                        <img class="media-object img-thumbnail" ng-src={{item.image}} alt="itemimage" width="70" height="70">
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    {{dish.description}}
+                                    {{item.description}}
 
                                 </div>
-                                <div class="media-bottom" style="text-align: center; padding-bottom: 5px; padding-left: 35px">
-                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favorito /
+                                <div class="media-bottom" style="text-align: center; padding-top: 10px;">
                                     <span class="fa fa-facebook-official"></span> Comentar
-                                    <button ng-click="openDishAdd(dish)">
+                                    <button style="float: right;" ng-click="openAddItem(item)">
+                                        Add. 
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true" style="float: right">
-                                            Add.
                                         </span>
                                     </button>
                                 </div>
@@ -82,12 +87,10 @@
                 <div class="col-xs-1 col-md-1">
                     <div class="tabbed">
                         <ul id="tabs">
-                            <li><a href="#4">Favoritos</a></li><br>
-                            <li><a href="#1">Hamburger</a></li><br>
-                            <li><a href="#2">Frango</a></li><br>
-                            <li><a href="#3">Linguica</a></li>
-                            <li class="active"><a href="#3">Cachorro Quente</a></li>
-                            <li><a href="#3">Churrasco</a></li>
+                            <li ng-repeat="ct in selectedCategory.categorytype" ng-click="selectCategoryType(ct)">
+                                <span>{{ct}}</span>
+                            </li>
+                            <br>
                         </ul>
                     </div>
                 </div>
@@ -95,25 +98,14 @@
         </div>
     </div>
 
-
-
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx footer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
     <footer class="container-fluid" data-position="fixed">
         <div class="col-md-12 navbar-default navbar-fixed-bottom">
             <div class="row" id="bottomNav">
 
-                <div class="col-xs-3 text-center" style="text-align: center">
-                    <a href="#"><img src="images/dish2.png" width="27" height="27"><br>Pratos</a>
-                </div>
-                <div class="col-xs-3 text-center" style="text-align: center; ">
-                    <a href="#"><img src="images/hamburger2.png" width="27" height="27"><br>Lanches</a>
-                </div>
-                <div class="col-xs-3 text-center" style="text-align: center">
-                    <a href="#"><img src="images/combo2.png" width="27" height="27"><br>Promoções</a>
-                </div>
-                <div class="col-xs-3 text-center" style="text-align: left">
-                    <a href="#"><img src="images/drink2.png" width="27" height="27"><br>Bebidas</a>
+                <div ng-repeat="c in categories" ng-click="selectCategory(c)" class="col-xs-3 text-center" style="text-align: center">
+                    <a href="#"><img src="images/dish2.png" width="27" height="27"><br>{{c.category}}</a>
                 </div>
 
             </div>
@@ -128,7 +120,7 @@
     <script src="scripts/menu-controller.js"></script>
     <script src="scripts/services.js"></script>
     <script src="dependencies/ng-dialog/js/ngDialog.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 
 </body>
 

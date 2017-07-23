@@ -1,0 +1,36 @@
+<div class="container" controller="addItemController">
+
+    
+        
+            <div class="modal-header">
+                <h5 class="modal-title">Add Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="form" ng-submit="addItem(itemToAdd)">
+
+                    <div style="display: inline">
+                        <img class="media-object img-thumbnail" ng-src={{itemToAdd.image}} alt="itemimage" width="70" height="70">|
+                        {{itemToAdd.name}}
+                    </div>
+
+                    <br/> {{itemToAdd.description}}
+
+                    <br/> {{itemToAdd.price | currency }}
+
+                    <br/>
+
+
+                    <div class="form-group ">
+                        <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block login-button" id="button">
+                    </div>
+
+                </form>
+            </div>
+
+       
+    
+</div>

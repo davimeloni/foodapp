@@ -1,0 +1,19 @@
+<div class="container" ng-controller="deliveryItemController">
+    <ul class="list-group" id="itensToDeliveryPerAccount" ng-repeat="account in accounts | orderBy: _id " >
+
+        {{account.user.name}}
+
+        <li class="list-group-item" id="itemToDelivery" ng-repeat="item in account.orderedItens | filter: 'readyToDelivery' ">
+            {{item.orderedItem.name}} - {{item.status}}
+            <br/>
+            {{item.orderedItem.description}}
+            <br>
+            Comment
+            <br/>
+            <button ng-click="deliveryItem(item, account._id)" >Delivered</button>
+            <button>Error</button>
+        </li>
+        <br/>
+        
+    </ul>
+</div>

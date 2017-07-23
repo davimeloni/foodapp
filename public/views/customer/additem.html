@@ -1,44 +1,38 @@
-<div class="container" controller="addItemController">
 
-    <form class="form-horizontal" ng-submit="addItem(itemToAdd)">
+<div class="modalContent" controller="addItemController">
 
-        <div class="">
-            <h3>Item Detail</h3>
-        </div>
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Add Item</strong>
+            <button style="float: right" type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </h5>
+    </div>
 
-        <div style="display: inline">
-            <a href="#">
-            <img class="media-object img-thumbnail" ng-src={{itemToAdd.image}} alt="itemimage" width="70" height="70">
-            
-            </a> | {{itemToAdd.name}}
-        </div>
+    <div class="modal-body">
+        <form class="form" ng-submit="addItem(itemToAdd, comments)">
 
-        <br/> {{itemToAdd.description}}
+            <div class="form-group">
+                <span>
+                    <strong>{{itemToAdd.name}} <span style="float: right;">{{itemToAdd.price | currency }}</span></strong>
+                </span>
+            </div>
 
-        <br/> {{itemToAdd.price | currency }} ...................... - 1 +
+            <div class="form-group">
+                {{itemToAdd.description}}
+            </div>
 
-        <br/>
+            <div class="form-group">
+                <label for="exampleTextarea">Comments</label>
+                <textarea class="form-control" id="comments" rows="2" ng-model="comments" ng-change="comments"></textarea>
+            </div>
 
-        <ul>
-            <br/>
-            <strong>Additionals</strong>
-            <br/>
-            <li ng-repeat="additional in additionals">
-                {{additional.name}}, {{additional.price | currency}}
-                <input type="checkbox" ng-model="additional" style="float: right">
-            </li>
-        </ul>
-
-        <br/> total =
-
-        <br/>
-
-        <div class="form-group ">
-            <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block login-button" id="button">
-        </div>
-
-    </form>
-
-
+            <div class="form-group ">
+                <input type="submit" value="Add Item" placeholder="Enter your comments, as spicy, a lot of cheese and etc.."
+                     class="btn btn-primary btn-block" id="button">
+                <!--<button type="button" ng-click="$dismiss()" class="btn btn-secondary" data-dismiss="modalContent">Close</button>-->
+            </div>
+        </form>
+    </div>
 
 </div>

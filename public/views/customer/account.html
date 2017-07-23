@@ -1,0 +1,85 @@
+<div class="modalContent" id="personAccount" controller="accountController">
+
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Conta</strong>
+            <button style="float: right" type="button" ng-click="$dismiss()" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </h5>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group" style="padding-bottom: 5px;">
+            <span style="float: right">
+                Em aberto: {{totalOpened | currency}} / <strong>Pedido: {{totalOrdered | currency}}</strong>
+            </span>
+        </div>
+
+        <br/>
+
+        <div class="form-group">
+            <ul class="list-group" id="openItens">
+                <h5>Itens em aberto
+                    <button style="float: right" class="btn btn-sm btn-primary" ng-click="orderItens(preOrderItens)">
+                    Pedir itens
+                    </button>
+                </h5>
+                <li class="list-group-item" id="openItem" ng-repeat="item in preOrderItens">
+                    <div class="form-group">
+                        <span>
+                        <strong>{{item.orderedItem.name}}</strong>
+                        <button style="float: right" type="button" ng-click="removeItem(item)" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments: </label>
+                        <span id="comments">{{item.comments}}</span>
+                        <span style="float: right">{{item.orderedItem.price | currency}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <ul class="list-group" id="itensProcessing">
+                <h5>Itens Processando</h5>
+                <li class="list-group-item" id="itemProcessing" ng-repeat="item in processingItens">
+                    <div class="form-group">
+                        <span>{{item.orderedItem.name}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments: </label>
+                        <span id="comments">{{item.comments}}</span>
+                        <span style="float: right">{{item.orderedItem.price | currency}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <ul class="list-group" id="deliveredItens">
+                <h5>Itens Entregues</h5>
+                <li class="list-group-item" id="deliveredItem" ng-repeat="item in deliveredItens">
+                    <div class="form-group">
+                        <span>{{item.orderedItem.name}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments: </label>
+                        <span id="comments">{{item.comments}}</span>
+                        <span style="float: right">{{item.orderedItem.price | currency}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Encerrar Conta</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Garcom</button>
+    </div>
+</div>

@@ -1,14 +1,20 @@
-<link href="styles/createitem.css" rel="stylesheet">
+<div class="modalContent" controller="createItemController" id="createitem">
 
-<div class="container" controller="createItemController" id="createitem">
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Create Item</strong>
+        <button style="float: right" type="button" ng-click="$dismiss()" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </h5>
+    </div>
 
-    <div class="row main">
-        <div class="main-login main-center">
+    <div class="container">
+        <div class="modal-body">
 
             <form class="form-horizontal" ng-submit="registerItem(item)">
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Name: </label>
-                    <div class="cols-sm-10">
+                    <label for="name" class="cols-md-2 control-label">Name: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <input ng-model="item.name" type="text" id="name" placeholder="Enter item name" />
                         </div>
@@ -16,8 +22,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="description" class="cols-sm-2 control-label">Description: </label>
-                    <div class="cols-sm-10">
+                    <label for="description" class="cols-md-2 control-label">Description: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <input ng-model="item.description" type="text" id="description" placeholder="Enter item description" />
                         </div>
@@ -25,8 +31,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="price" class="cols-sm-2 control-label">Price: </label>
-                    <div class="cols-sm-10">
+                    <label for="price" class="cols-md-2 control-label">Price: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <input ng-model="item.price" type="number" id="price" value="100.00" min="0" step="0.01" placeholder="Enter item price" />
                         </div>
@@ -34,8 +40,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="category" class="cols-sm-2 control-label">Category: </label>
-                    <div class="cols-sm-10">
+                    <label for="category" class="cols-md-2 control-label">Category: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <select id="category" ng-model="item.selectedCategory" ng-options="c.category for c in categories" ng-change="item.selectedCategory"></select>
                         </div>
@@ -43,8 +49,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="type" class="cols-sm-2 control-label">Type: </label>
-                    <div class="cols-sm-10">
+                    <label for="type" class="cols-md-2 control-label">Type: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <select id="type" ng-model="item.selectedCategoryType" ng-disabled="!item.selectedCategory" ng-options="value as value for (key, value) in item.selectedCategory.categorytype"></select>
                         </div>
@@ -52,8 +58,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image" class="cols-sm-2 control-label">Item image: </label>
-                    <div class="cols-sm-10">
+                    <label for="image" class="cols-md-2 control-label">Item image: </label>
+                    <div class="cols-md-10">
                         <div class="input-group">
                             <input type="file" ng-model="item.image" id="image" placeholder="upload item image" />
                         </div>
@@ -61,11 +67,11 @@
                 </div>
 
                 <div class="form-group ">
-                    <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block login-button" id="button">
+                    <input type="submit" value="Submit" class="btn btn-primary" id="button">
+                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
 
             </form>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 
         </div>
     </div>

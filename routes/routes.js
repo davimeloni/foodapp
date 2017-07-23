@@ -8,9 +8,12 @@ router.use(bodyParser.json());
 //Routes controllers
 var itemController = require('../controllers/item-controller');
 var categoryController = require('../controllers/category-controller');
-var checkController = require('../controllers/check-controller');
+var accountController = require('../controllers/account-controller');
+
+//------------------------------------------------------------------------------------
 
 //item
+//methods
 router
     .route('/item')
     .get(itemController.getAllItens)
@@ -22,22 +25,47 @@ router
     .delete(itemController.deleteItem);
 
 //category
+//methods
 router
     .route('/category')
     .get(categoryController.getAllCategories);
 
-//check
-router
-    .route('/check')
-    .post(checkController.createCheck);
 
+//account
+//create account
 router
-    .route('/check/:checkId')
-    .get(checkController.getCheck)
-    .put(checkController.updateCheck);
+    .route('/account')
+    .post(accountController.createAccount);
 
+//get account or update by its id
 router
-    .route('/check/:checkId/item')
-    .put(checkController.updateItemCheck);
+    .route('/account/:accountId')
+    .get(accountController.getAccount)
+    .put(accountController.updateAccount);
+
+//add item to account
+router
+    .route('/account/:accountId/additem')
+    .put(accountController.addItemAccount);
+
+//all itens in account
+router
+    .route('/account/:accountId/updateitens')
+    .put(accountController.updateItensAccount);
+
+//specific item in account
+router
+    .route('/account/:accountId/item/:itemId')
+    .delete(accountController.deleteItemAccount);
+
+//get itens by status
+router
+    .route('/accountstatus')
+    .get(accountController.getItensAccountsByStatus);
+
+//get accounts with itens in the kitchen
+router
+    .route('/accountskitchen')
+    .get(accountController.getAccountItensKitchen);
 
 module.exports = router;

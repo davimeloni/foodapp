@@ -1,141 +1,161 @@
 angular.module('foodapp');
-app.controller('menuController', ['$scope','$modal', 'itemService', 'categoryService', 'checkService',
-                                    function ($scope, $modal, itemService, categoryService, checkService) {
+app.controller('menuController', ['$scope', '$modal', 'itemService', 'categoryService', 'accountService',
+    function ($scope, $modal, itemService, categoryService, accountService) {
 
-    
-    //get the menu from DB
-    $scope.itens = itemService.getItens().then(function (response) {
-        $scope.itens = response.data;
-    });
-
-    //get categories
-    categoryService.getCategories().then(function (response) {
-        $scope.categories = response.data;
-    });
-
-    $scope.selectCategory = function(selectedCategory) {
-        console.log(selectedCategory.categorytype[0]);
-        $scope.selectedCategory = selectedCategory;
-        $scope.selectedCategoryType = selectedCategory.categorytype[0];
-    }
-
-    $scope.selectCategoryType = function(selectedCategoryType) {
-        console.log(selectedCategoryType);
-        $scope.selectedCategoryType = selectedCategoryType;
-    }
-
-    //------------------------open modals------------------------------
-
-    $scope.openAddItem = function(itemToAdd) {
-        var modalInstance = $modal.open({
-            controller: "addItemController",
-            templateUrl: "/views/customer/additem.html",
-            resolve: {}
-        });
-
-        modalInstance.itemToAdd = itemToAdd;
-    }
-
-    $scope.openCheck = function() {
-        var modalInstance2 = $modal.open({
-            controller: "checkController",
-            templateUrl: "/views/customer/check.html",
-            resolve: {}
-        });
-    }
-
-    //open the Cart/Pedido (generate a new in here)
-    
-    //add a dish to the cart
-    /*$scope.openDishAdd = function (dish) {
+        $scope.itens = [];
+        $scope.categories = [];
         
-        var modalInstance = $modal.open({
-            controller: "addDishController",
-            templateUrl: "dishAdd.html",
+        //get categories
+        categoryService.getCategories().then(function (response) {
+            $scope.categories = response.data;
+            $scope.selectedCategory = $scope.categories[0];
         });
 
-        modalInstance.dish = dish;
-        console.log(dish);
-    }*/
-    
-}]);
+        //get the menu from DB
+        itemService.getItens().then(function (response) {
+            $scope.itens = response.data;
+        });
 
-app.controller('addItemController', ['$modalInstance', '$scope', 'itemService', 'checkService',
-                                 function ($modalInstance, $scope, itemService, checkService) {
-
-    $scope.itemToAdd = $modalInstance.itemToAdd;  
-    
-    var check = {};
-
-    check._id = '596f80c7687d04c90ca1bdd3';
-    check.orderedItens = {};
-    //check.status = 'Opened';
-    //check.orderedItens = [{
-     //   orderedItem: {},
-     //   status: ''
-    //}];
-
-    $scope.addItem = function(itemToAdd) {
-        preOrderItem = {
-            orderedItem: itemToAdd,
-            status: 'preOrderItem'
+        $scope.selectCategory = function (selectedCategory) {
+            console.log(selectedCategory.categorytype[0]);
+            $scope.selectedCategory = selectedCategory;
+            $scope.selectedCategoryType = selectedCategory.categorytype[0];
         }
-        
-        check.orderedItens = preOrderItem;
-        //check.orderedItens.orderedItem = itemToAdd;
-        //check.orderedItens.status = 'preOrderItem';
 
-        console.log("updating check with the item");
-
-        checkService.updateItemCheck(check);
-    }
-
-}]);
+        $scope.selectCategoryType = function (selectedCategoryType) {
+            console.log(selectedCategoryType);
+            $scope.selectedCategoryType = selectedCategoryType;
+        }
 
 
 
-/*
-app.controller('addDishController', ['$scope', '$modalInstance', 'menuFactory', function($scope, $modalInstance, menuFactory) {
+        //------------------------open modals------------------------------
 
-    console.log($modalInstance.dish);
-    $scope.dish = $modalInstance.dish;
+        $scope.openAddItem = function (itemToAdd) {
+            var modalInstance = $modal.open({
+                controller: "addItemController",
+                templateUrl: "/views/customer/additem.html",
+                resolve: {}
+            });
 
-    $scope.additionals = menuFactory.getAdditionals();
+            modalInstance.itemToAdd = itemToAdd;
+        }
 
-    $scope.getTotal = function() {
+        $scope.openAccount = function () {
+            var modalInstance2 = $modal.open({
+                controller: "accountController",
+                templateUrl: "/views/customer/account.html",
+                resolve: {}
+            });
+        }
 
-    }
+    }]);
 
-    $scope.addToCart = function() {
-        //get selected additionals
+//Controller to the page to add item to the account
+app.controller('addItemController', ['$modalInstance', '$scope', 'itemService', 'accountService',
+    function ($modalInstance, $scope, itemService, accountService) {
 
-        //get dish quantity
+        $scope.itemToAdd = $modalInstance.itemToAdd;
+        $scope.comments = '';
 
-        //Compile into a dish in the cart (dish + additionals)
-        //and persist as the dish as added to cart.
-    }
+        var account = {};
 
-}]);
+        account._id = '5971ffc8ad411f1be0563a77';
+        account.orderedItens = {};
 
-app.controller('orderManagerController')
+        $scope.addItem = function (itemToAdd, comments) {
+            preOrderItem = {
+                orderedItem: itemToAdd,
+                status: 'preOrderItem',
+                comments: comments
+            }
 
-    Get order from DB to display all dishes ordered for this specific order
-    getOrder();
+            account.orderedItens = preOrderItem;
+            console.log(account);
 
-    //order the dishes that are 'added to cart' and set them to 'ordered' (Kitchen will see the dishes with 'ordered' status)
-    order();
+            accountService.addItemAccount(account);
 
-    //remove a dish from the order
-    removeDish();
+            $modalInstance.dismiss();
+        }
 
-    getTotalAddedToCart();
-    getTotalOrdered();
+    }]);
 
-    set Order status to askedToClose...
-    Ask if want pay from the app or call the Waiter
-    Notify the waiter anyway...
-    if transaction was successful, set Order to 'closed'
-    closeOrder();
 
-*/
+//Controller for the Account
+app.controller('accountController', ['$modalInstance', '$state', '$scope', 'itemService', 'accountService',
+    function ($modalInstance, $state, $scope, itemService, accountService) {
+
+        var removeData = {};
+        var orderData = {};
+        $scope.preOrderItens = [];
+        $scope.processingItens = [];
+        $scope.deliveredItens = [];
+        $scope.totalOpened = 0;
+        $scope.totalOrdered = 0;
+
+        accountId = '5971ffc8ad411f1be0563a77';
+
+        //get account item data
+        $scope.getItemData = function () {
+            accountService.getAccount(accountId).then(function (response) {
+                $scope.account = response.data;
+                console.log(response.data.orderedItens);
+                //filter itens
+                $scope.account.orderedItens.forEach(function (filterItem) {
+                    if (filterItem.status == "preOrderItem") {
+                        console.log(filterItem.orderedItem.name + " - " + filterItem.status);
+                        $scope.preOrderItens.push(filterItem);
+                        $scope.totalOpened = $scope.totalOpened + filterItem.orderedItem.price;
+                    } else if (filterItem.status == "Delivered") {
+                        $scope.deliveredItens.push(filterItem);
+                        $scope.totalOrdered = $scope.totalOrdered + filterItem.orderedItem.price;
+                    } else {
+                        $scope.processingItens.push(filterItem);
+                        $scope.totalOrdered = $scope.totalOrdered + filterItem.orderedItem.price;
+                    }
+                });
+                console.log($scope.deliveredItens);
+            });
+        };
+
+        $scope.getItemData();
+
+        //---------------------------------functions --------------------------------
+
+        //remove item
+        $scope.removeItem = function (item) {
+            console.log("removing item...");
+            removeData = {
+                accountId: accountId,
+                itemId: item._id
+            }
+            accountService.removeItemAccount(removeData);
+
+            $scope.preOrderItens = [];
+            $scope.processingItens = [];
+
+            $scope.getItemData();
+        }
+
+        //order the opened itens
+        $scope.orderItens = function (itens) {
+            itens.forEach(function (item) {
+                item.status = "Ordered";
+            }, this);
+            orderData = {
+                accountId: accountId,
+                orderedItens: itens
+            };
+            console.log(orderData);
+            accountService.updateItensAccount(orderData);
+
+            $scope.preOrderItens = [];
+            $scope.processingItens = [];
+
+            $scope.getItemData();
+        }
+
+    }]);
+
+
 

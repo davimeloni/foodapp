@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 require('mongoose-currency').loadType(mongoose);
 var Currency = mongoose.Types.Currency;
+
 var SchemaTypes = mongoose.Schema.Types;
+
 
 var orderItemSchema = new mongoose.Schema({
     orderedItem: {
@@ -10,6 +12,9 @@ var orderItemSchema = new mongoose.Schema({
     additionals: {
         type: [String]
     },
+    comments: {
+        type: String
+    },
     status: {
         type: String
     },
@@ -17,7 +22,7 @@ var orderItemSchema = new mongoose.Schema({
     timestamps: true
 });
 
-var checkSchema = new mongoose.Schema({
+var accountSchema = new mongoose.Schema({
     counter: {
         type: Number,
         required: true,
@@ -43,5 +48,5 @@ var checkSchema = new mongoose.Schema({
     timestamps: true
 });
 
-var Check = mongoose.model('Check', checkSchema);
-module.exports = Check;
+var Account = mongoose.model('Account', accountSchema);
+module.exports = Account;

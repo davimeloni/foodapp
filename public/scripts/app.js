@@ -4,29 +4,33 @@ var app = angular.module('foodapp', ["ui.router", "ui.bootstrap"]);
 app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state("createitem", {
-     url: "/createitem",
-     templateUrl: "/views/admin/createitem.html",
-     controller: "createItemController",
-     css: "/styles/createitem.css"
+    .state("test", {
+     url: "/#",
+     templateUrl: "/views/customer/menuv8.html",
+     controller: "menuController",
+     css: "/styles/menuv8.css"
   })
     .state("menu", {
      url: "/menu",
-     templateUrl: "/views/customer/menuv7.html",
+     templateUrl: "/views/customer/menuv8.html",
      controller: "menuController",
-     css: "/styles/menuv6.css"
+     css: "/styles/menuv8.css"
   })
     .state("manageitens", {
       url: "/manageitens",
       templateUrl: "/views/admin/manageitem.html",
       controller: "manageItemController"
   })
-    .state("createitem2", {
-     url: "/createitem2",
-     templateUrl: "/views/admin/createitemv2.html",
-     controller: "createItemController",
-     css: "/styles/createitem.css"
-  })
+    .state("kitchen", {
+      url: "/kitchen",
+      templateUrl: "/views/restaurant/kitchen.html",
+      controller: "kitchenController"
+    })
+    .state("itensToDelivery", {
+      url: "/itenstodelivery",
+      templateUrl: "/views/restaurant/itenstodelivery.html",
+      controller: "deliveryItemController"
+    })
 
 
 }]);

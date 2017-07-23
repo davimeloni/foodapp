@@ -17,64 +17,42 @@
 
     </header>
 
-    <div class="container">
+    <div class="container" ng-controller="kitchenController">
 
         <div class="row">
             <div class="col-md-6">
-                <ul id="ordersOrdered">
-                    <li id="orderOrdered">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                <ul id="itensOrdered">
+                    <li id="orderedItem" ng-repeat="item in itensToCook | orderBy:'orderedItemUpdatedAt' ">
+                        Account Data - Ordered at: {{item.orderedItemUpdatedAt}}
                         <br/>
-                        <button>Receive</button>
-                        <button>Deny</button>
-                    </li>
-                    <br/>
-                    <li id="orderOrdered">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                        {{item.orderedItem.name}}
                         <br/>
-                        <button>Receive</button>
-                        <button>Deny</button>
-                    </li>
-                    <br/>
-                    <li id="orderOrdered">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                        {{item.orderedItem.description}}
+                        <br> 
+                        Comment
                         <br/>
-                        <button>Receive</button>
+                        <button ng-click="cookItem(item)">Cook it!</button>
                         <button>Deny</button>
+                        <br/>
                     </li>
-                    <br/>
                 </ul>
             </div>
 
             <div class="col-md-6">
-                <ul id="ordersReady">
-                    <li id="orderReady">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                <ul id="cookingItens">
+                    <li id="cookingItem" ng-repeat="item in itensCooking | orderBy:'orderedItemUpdatedAt' ">
+                        Account Data - Cooking since: {{item.orderedItemUpdatedAt}}
                         <br/>
-                        <button>Finish order</button>
-                        <button>Error</button>
-                    </li>
-                    <br/>
-                    <li id="orderReady">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                        {{item.orderedItem.name}}
                         <br/>
-                        <button>Finish order</button>
-                        <button>Error</button>
-                    </li>
-                    <br/>
-                    <li id="orderReady">
-                        Person x ; Table 5<br/> Item x, additionals, Price<br/> description
-                        <br> Comment
+                        {{item.orderedItem.description}}
+                        <br> 
+                        Comment
                         <br/>
-                        <button>Finish order</button>
+                        <button ng-click="finishItem(item)">Ready!</button>
                         <button>Error</button>
+                        <br/>
                     </li>
-                    <br/>
                 </ul>
 
             </div>

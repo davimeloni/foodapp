@@ -1,0 +1,56 @@
+<div class="container" id="personAccount" controller="accountController">
+
+    <h3>Person Name .................. Open: $100,00 / Ordered: $200,00</h3><br/>
+    <h2>{{account.status}}
+    <ul id="openItens">
+        <h3>Open Itens</h3>
+        <li id="openItem" ng-repeat="item in preOrderItens">
+            <span>{{item.orderedItem.name}} - {{item.orderedItem.price | currency}}</span>
+            <br/>
+            <span>{{item.orderedItem.description}}</span>
+            <br/>
+            {{item.status}}<br/>
+            Comments<br/>
+            <button ng-click="removeItem(item)">Remove</button>
+            <br/>
+            <br/>
+        </li>
+    </ul>
+    <button ng-click="orderItens(preOrderItens)">Order</button>
+
+    <br/>
+
+    <ul id="itensProcessing">
+        <h3>Itens Processing</h3>
+        <li id="itemProcessing" ng-repeat="item in processingItens">
+            <span>{{item.orderedItem.name}} - {{item.orderedItem.price | currency }}</span>
+            <br/>
+            {{item.orderedItem.description}}<br>
+            Comment<br/>
+        </li>
+    </ul>
+
+    <ul id="itensDelivered">
+        <h3>Itens Delivered</h3>
+        <li id="itemDelivered">
+            Item x, additionals, Price<br/>
+            description<br>
+            Comment<br/>
+        </li>
+        <li id="itemDelivered">
+            Item x, additionals, Price<br/>
+            description<br>
+            Comment<br/>
+        </li>
+        <li id="itemDelivered">
+            Item x, additionals, Price<br/>
+            description<br>
+            Comment<br/>
+        </li>
+    </ul>
+
+    ------------------
+    <br/>
+    <button>Finish Check</button>
+
+</div>
