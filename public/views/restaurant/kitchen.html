@@ -1,64 +1,63 @@
-<!DOCTYPE html>
-<html>
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link href="../../dependencies/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../dependencies/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="styles/kitchen.css" rel="stylesheet">
 </head>
-
 <body>
-    <header>
-        <h1>Order to Deliver Header</h1>
-
-    </header>
 
     <div class="container" ng-controller="kitchenController">
 
-        <div class="row">
+        <div class="form row">
             <div class="col-md-6">
-                <ul id="itensOrdered">
-                    <li id="orderedItem" ng-repeat="item in itensToCook | orderBy:'orderedItemUpdatedAt' ">
-                        Account Data - Ordered at: {{item.orderedItemUpdatedAt}}
-                        <br/>
-                        {{item.orderedItem.name}}
-                        <br/>
-                        {{item.orderedItem.description}}
-                        <br> 
-                        Comment
-                        <br/>
-                        <button ng-click="cookItem(item)">Cook it!</button>
-                        <button>Deny</button>
-                        <br/>
+                <h3 style="text-align: center">Items to cook</h3>
+                <ul class="list-group" id="itensOrdered">
+                    <div class="form-group">
+                        <button class="btn btn-primary" ng-click="cookItens()">
+                        Cook it!
+                    </button>
+                        <button class="btn btn-warning" ng-click="cookItem()">
+                        Deny it!
+                    </button>
+                        <label style="float: right">
+                            Select All
+                            <input type="checkbox" ng-click="selectAllItensToCook()">
+                    </label>
+                    </div>
+                    <li class="list-group-item" id="orderedItem" ng-repeat="itemtc in itensToCook | orderBy:'orderedItemUpdatedAt' ">
+                        <span>
+                        Name - Ordered at: {{itemtc.orderedItemUpdatedAt}}
+                        <label style="float: right" >
+                            Select Item
+                            <input type="checkbox" ng-model="itemtc.selected">
+                        </label>
+                    </span>
+                        <br/> {{itemtc.orderedItem.name}} - {{itemtc.selected}}
                     </li>
                 </ul>
             </div>
 
             <div class="col-md-6">
-                <ul id="cookingItens">
-                    <li id="cookingItem" ng-repeat="item in itensCooking | orderBy:'orderedItemUpdatedAt' ">
-                        Account Data - Cooking since: {{item.orderedItemUpdatedAt}}
-                        <br/>
-                        {{item.orderedItem.name}}
-                        <br/>
-                        {{item.orderedItem.description}}
-                        <br> 
-                        Comment
-                        <br/>
-                        <button ng-click="finishItem(item)">Ready!</button>
-                        <button>Error</button>
-                        <br/>
+                <h3 style="text-align: center">Items cooked</h3>
+                <ul class="list-group" id="cookingItens">
+                    <div class="form-group">
+                        <button class="btn btn-success" ng-click="finishItem(item)">
+                        Ready!
+                    </button>
+                        <label style="float: right">
+                            Select All
+                            <input type="checkbox" ng-click="selectAllItensCooking()">
+                    </label>
+                    </div>
+                    <li class="list-group-item" id="cookingItem" ng-repeat="item in itensCooking | orderBy:'orderedItemUpdatedAt' ">
+                        <span> Name - Ordered at: {{item.orderedItemUpdatedAt}}
+                        <label style="float: right">
+                            Select Item
+                            <input type="checkbox" ng-model="item.selected">
+                        </label>
+                    </span>
+                        <br/> {{item.orderedItem.name}}
                     </li>
                 </ul>
 
             </div>
         </div>
     </div>
-
 </body>
-
-</html>

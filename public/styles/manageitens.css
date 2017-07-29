@@ -1,0 +1,22 @@
+body {
+    background-color: silver;
+}
+
+.manageitens {
+    margin-top: 70px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.table {
+    background-color: whitesmoke;
+    border: 2px solid black;
+}
+
+.navbar-inverse {
+    padding: 10px;
+}
+
+.search {
+    float: right;
+    margin-right: 40px;
+}

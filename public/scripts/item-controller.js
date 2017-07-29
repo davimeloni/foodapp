@@ -1,19 +1,16 @@
 angular.module('foodapp');
 app.controller('manageItemController', ['$modal', '$scope', '$location', '$state', 'categoryService', 'itemService', function ($modal, $scope, $location, $state, categoryService, itemService) {
 
+    $scope.searchItem = '';
+    
     itemService.getItens().then(function (response) {
         $scope.itens = response.data;
 
     });
-
-
     //$scope.createItem = function (hash) {
     //    $location.path(hash);
     //};
-
-
     $scope.createItem = function () {
-
         var modalInstance2 = $modal.open({
             controller: "createItemController",
             templateUrl: "/views/admin/createitem.html",
@@ -25,11 +22,8 @@ app.controller('manageItemController', ['$modal', '$scope', '$location', '$state
         var modalInstance = $modal.open({
             controller: "editItemController",
             templateUrl: "/views/admin/edititem.html",
-
         });
-
         modalInstance.item = item;
-        
     }
 
     $scope.removeItem = function(itemId) {

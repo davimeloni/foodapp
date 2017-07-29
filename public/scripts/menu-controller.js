@@ -1,14 +1,15 @@
 angular.module('foodapp');
-app.controller('menuController', ['$scope', '$modal', 'itemService', 'categoryService', 'accountService',
-    function ($scope, $modal, itemService, categoryService, accountService) {
+app.controller('menuController', ['$scope', '$modal', '$state', 'itemService', 'categoryService', 'accountService',
+    function ($scope, $modal, $state, itemService, categoryService, accountService) {
 
         $scope.itens = [];
         $scope.categories = [];
+        $scope.table = 06;
         
         //get categories
         categoryService.getCategories().then(function (response) {
             $scope.categories = response.data;
-            $scope.selectedCategory = $scope.categories[0];
+            
         });
 
         //get the menu from DB
@@ -135,6 +136,7 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
             $scope.processingItens = [];
 
             $scope.getItemData();
+            $scope.totalOpened = $scope.totalOpened - item.orderedItem.price;
         }
 
         //order the opened itens

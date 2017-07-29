@@ -13,7 +13,7 @@ module.exports.getAllItens = function(req, res) {
         .exec(function(err, itens) {
             if (err) throw err;
             res.json(itens);
-            console.log(itens);
+            //console.log(itens);
         });
 };
 

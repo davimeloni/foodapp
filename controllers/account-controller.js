@@ -36,10 +36,10 @@ module.exports.addItemAccount = function (req, res) {
 
     Account.findById(req.params.accountId, function (err, account) {
         if (err) throw err;
-        console.log("account found.." + account);
+        console.log("account found.." + account._id);
         account.orderedItens.push(req.body.orderedItens);
 
-        console.log(account);
+        console.log(account._id);
 
         account.save(function (err, account) {
             if (err) throw err;
@@ -96,7 +96,7 @@ module.exports.getAccountItensKitchen = function (req, res) {
         .exec(function (err, accounts) {
             if (err) throw err;
             res.json(accounts);
-            console.log(accounts);
+            //console.log(accounts);
         });
 }
 
@@ -108,6 +108,6 @@ module.exports.getItensAccountsByStatus = function (req, res) {
         .exec(function (err, accounts) {
             if (err) throw err;
             res.json(accounts);
-            console.log(accounts);
+            //console.log(accounts);
         });
 }

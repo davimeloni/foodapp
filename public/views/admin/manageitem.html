@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html>
+<body ng-controller="manageItemController">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <header class="row">
+        <div class="navbar-inverse navbar-fixed-top">
+            <div class="form-inline">
+                <div class="form-group createitem">
+                    <button class="btn btn-navbar" style="margin-left: 20px;" ng-click="createItem()">Create Item</button>
+                </div>
+                <div class="form-group title">
+                    <span style="margin-left: 400px; font-size: 25px; color: white">Manage Itens</span>
+                </div>
+                <div class="form-group" style="float: right; margin-right: 30px;">
+                    <div class="input-group" >
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchItem">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <link href="styles/bootstrap-social.css" rel="stylesheet">
-
-    <link href="../../dependencies/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../dependencies/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="../../dependencies/bootstrap/dist/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="../../dependencies/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-
-
-</head>
-
-<body>
-
-    <div class="container" ng-controller="manageItemController">
-
-        <h2>Manage Itens Header</h2>
-
-
-        <button ng-click="createItem()">Create Item</button>
-        <button ng-click="test()">Test</button>
-
-        <table class="table table-responsive">
+    <div class="container manageitens">
+        <br/>
+        <table class="table table-responsive table-bordered">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Description</th>
@@ -40,17 +34,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in itens">
-                    <th scope="row">x</th>
+                <tr ng-repeat="item in itens | filter:searchItem">
                     <td>{{item.image}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
                     <td>{{item.category}}</td>
                     <td>{{item.categorytype}}</td>
-                    <td>{{item.price.toFixed(2) | currency}}</td>
+                    <td>{{item.price.toFixed(2) | currency:'R$':2}}</td>
                     <td>
-                        <button ng-click="editItem(item)">Edit</button>
-                        <button ng-click="removeItem(item._id)">Remove</button>
+                        <span ng-click="editItem(item)">
+                            Edit
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                        <br/>
+                        <span ng-click="removeItem(item._id)">
+                            Delete
+                            <i class="fa fa-trash"></i>
+                        </span>
                     </td>
                 </tr>
             </tbody>
@@ -66,9 +66,4 @@
         </tr>
     </tbody>
     -->
-
-
-
 </body>
-
-</html>

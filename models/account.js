@@ -41,7 +41,7 @@ var accountSchema = new mongoose.Schema({
         type: String,
     },
     table: {
-        type: SchemaTypes.ObjectId, ref: 'Table'
+        type: Number
     }
 
 }, {

@@ -13,7 +13,7 @@ module.exports.getAllCategories = function(req, res) {
         .exec(function(err, categories) {
             if (err) throw err;
             res.json(categories);
-            console.log(categories);
+            //console.log(categories);
         });
 };
 

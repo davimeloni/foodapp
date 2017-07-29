@@ -1,0 +1,122 @@
+<html ng-app="foodapp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="styles/bootstrap-social.css" rel="stylesheet">
+    <link href="styles/menuv9.css" rel="stylesheet">
+    <link href="dependencies/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dependencies/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="dependencies/bootstrap/dist/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="dependencies/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <form class="form">
+                    <div class="form-group" id="headerContent">
+
+                        <div class="col-xs-4 col-md-4">
+                            <span id="homeicon" style="float: left;">
+                                <i class="glyphicon glyphicon-blackboard"></i>
+                                <br/>
+                                Mesa:{{("0000" + table).slice(-2)}}
+                            </span>
+                        </div>
+
+                        <div class="col-xs-4 col-md-4">
+                            <span id="menuicon">
+                                <i class="fa fa-cutlery" style="font-size: 35px; margin-left: 15px;"></i>
+                            </span>
+                        </div>
+
+                        <div class="col-xs-4 col-md-4">
+                            <span id="accounticon" style="float: right;" ng-click="openAccount()">
+                                 <i class="glyphicon glyphicon-list-alt"></i>
+                                <!--<img style="margin-left: 8px;" src="images/conta.png"
+                                     width="20" height="20" alt="account" ng-click="openAccount()"/>-->
+                                <br/>
+                                <p>Conta</p>
+                            </span>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx content xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+    <div id="container" ng-controller="menuController">
+        <div class="row no-gutter">
+            <div class="tabbable tabs-right">
+
+                <div class="col-xs-11 col-md-11">
+                    <div class="tab-content" id="tab-content">
+                        <ul class="media-list tab-pane fade in active">
+                            <li class="media" ng-repeat="item in itens | filter: {categorytype: selectedCategoryType}">
+                                <div class="media-heading">
+                                    <span>{{item.name}}</span>
+                                    <span style="float: right">{{item.price | currency}}</span>
+                                </div>
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object img-thumbnail" ng-src={{item.image}} alt="itemimage" width="70" height="70">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    {{item.description}}
+
+                                </div>
+                                <div class="media-bottom" style="text-align: center; padding-top: 10px;">
+                                    <span class="fa fa-facebook-official"></span> Comentar
+                                    <i class="fa fa-2x fa-cart-plus" style="float: right; padding-bottom: 5px;" ng-click="openAddItem(item)"></i>
+                                    <!--<button style="float: right;" ng-click="openAddItem(item)">
+                                        Add. 
+                                    </button>-->
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-1 col-md-1">
+                    <div class="tabbed">
+                        <ul id="tabs">
+                            <li ng-repeat="ct in selectedCategory.categorytype" ng-click="selectCategoryType(ct)">
+                                <span>{{ct}}</span>
+                            </li>
+                            <br>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx footer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+    <footer class="container-fluid" data-position="fixed">
+        <div class="col-md-12 navbar-default navbar-fixed-bottom">
+            <div class="row" id="bottomNav">
+
+                <div ng-repeat="c in categories" ng-click="selectCategory(c)" class="col-xs-3 text-center" style="text-align: center">
+                    <a href="#!/menu"><img src="images/dish2.png" width="27" height="27"><br>{{c.category}}</a>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

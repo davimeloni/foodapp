@@ -1,0 +1,36 @@
+<div class="container" ng-controller="kitchenController">
+
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-group" id="itensOrdered">
+                <li class="list-group-item" id="orderedItem" ng-repeat="item in itensToCook | orderBy:'orderedItemUpdatedAt' ">
+                    Account Data - Ordered at: {{item.orderedItemUpdatedAt}}
+                    <br/> {{item.orderedItem.name}}
+                    <br/> {{item.orderedItem.description}}
+                    <br> Comment
+                    <input type="checkbox" value="{{item}}">
+                    <br/>
+                    <button ng-click="cookItem(item)">Cook it!</button>
+                    <button>Deny</button>
+                    <br/>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <ul id="cookingItens">
+                <li id="cookingItem" ng-repeat="item in itensCooking | orderBy:'orderedItemUpdatedAt' ">
+                    Account Data - Cooking since: {{item.orderedItemUpdatedAt}}
+                    <br/> {{item.orderedItem.name}}
+                    <br/> {{item.orderedItem.description}}
+                    <br> Comment
+                    <br/>
+                    <button ng-click="finishItem(item)">Ready!</button>
+                    <button>Error</button>
+                    <br/>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

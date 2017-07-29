@@ -12,9 +12,9 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
   })
     .state("menu", {
      url: "/menu",
-     templateUrl: "/views/customer/menuv8.html",
+     templateUrl: "/views/customer/menuv9.html",
      controller: "menuController",
-     css: "/styles/menuv8.css"
+     css: "/styles/menuv9.css"
   })
     .state("manageitens", {
       url: "/manageitens",
