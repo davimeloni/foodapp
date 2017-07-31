@@ -21,7 +21,7 @@ app.set('port', (process.env.PORT || '3000'));
 var socialauth = require('./config/passport')(app, passport);
 //middlewares -------------------------------
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(cookieParser());
 
 //app.use(passport.initialize());
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     //print log
     console.log(req.method, req.url);
-    console.log(req.cookies);
+    //console.log(req.cookies);
     //call the next function
     next();
 });

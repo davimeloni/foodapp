@@ -25,9 +25,9 @@ app.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", functio
       templateUrl: "/views/restaurant/itenstodelivery.html",
       controller: "deliveryItemController"
     })
-    .state("login2", {
-      url: "/login2",
-      templateUrl: "/views/login2.html",
+    .state("login", {
+      url: "/login",
+      templateUrl: "/views/login.html",
       controller: "LoginController"
     })
     .state("selecttable", {

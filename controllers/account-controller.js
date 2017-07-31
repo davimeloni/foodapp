@@ -5,23 +5,29 @@ var mongoose = require('mongoose');
 var Account = require('../models/account');
 
 module.exports.createAccount = function (req, res) {
-    console.log('chegando aqui?');
-    console.log(req.body);
+    Account.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, account) {
+        if (err) throw (err);
+        
+        var newAccount = new Account(req.body);
+        newAccount.counter = account.counter + 100;
+        console.log(newAccount);
 
-    Account.create(req.body, function (err, account) {
-        if (err) throw err;
-        console.log(account._id + " account was created");
+        newAccount.save(function (err, accountCreated) {
+            if (err) throw(err);
+            console.log("account created");
+            console.log(accountCreated);
+            res.json(accountCreated);
+        })
     });
-
 }
 
-module.exports.getLastAccount = function(req, res) {
-    Account.findOne().sort({'createdAt': -1})
-            .exec(function (err, account) {
-                if (err) throw err;
-                res.json(account.counter);
-                console.log(account.counter);
-            });
+module.exports.getLastAccount = function (req, res) {
+    Account.findOne().sort({ 'createdAt': -1 })
+        .exec(function (err, account) {
+            if (err) throw err;
+            res.json(account.counter);
+            console.log(account.counter);
+        });
 }
 
 module.exports.getAccount = function (req, res) {
@@ -77,9 +83,9 @@ module.exports.updateItensAccount = function (req, res) {
                 })
         }, this);
 
-    //if updating one item
+        //if updating one item
     } else {
-    
+
         Account.update({ _id: req.params.accountId, 'orderedItens._id': req.body.orderedItens._id },
             { $set: { 'orderedItens.$.status': req.body.orderedItens.status } }, function (err, account) {
                 if (err) throw err;
@@ -113,8 +119,8 @@ module.exports.getAccountItensKitchen = function (req, res) {
 
 //get accounts by status
 module.exports.getItensAccountsByStatus = function (req, res) {
-    
-    Account.find({ "orderedItens.status": "readyToDelivery"})
+
+    Account.find({ "orderedItens.status": "readyToDelivery" })
         .populate('orderedItens.orderedItem')
         .exec(function (err, accounts) {
             if (err) throw err;

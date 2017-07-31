@@ -38,18 +38,19 @@ function categoryService($http) {
 //Services for account
 angular.module('foodapp').service('accountService', accountService);
 function accountService($http) {
+    this.account = {};
 
     this.createAccount = function (account) {
         return $http.post('/account', account).then(complete).catch(failed);
     };
 
-    this.getLastAccount = function () {
-        return $http.get('/lastaccount').then(complete).catch(failed);
-    }
-
-    this.getAccount = function (accountId) {
+    this.getAccountById = function(accountId) {
         return $http.get('/account/' + accountId).then(complete).catch(failed);
     }
+
+    this.getLastAccount = function () {
+        return $http.get('/lastaccount').then(complete).catch(failed);
+    };
 
     this.addItemAccount = function (account) {
         return $http.put('/account/' + account._id + '/additem', account).then(complete).catch(failed);
@@ -71,47 +72,17 @@ function accountService($http) {
         return $http.get('/accountstatus').then(complete).catch(failed);
     }
 
-    this.property = {};
 
-    this.setProperty = function (property) {
-        this.property = property;
+    this.setAccount = function (account) {
+        this.account = account;
     }
 
-    this.getProperty = function () {
-        return this.property;
+    this.getAccount = function () {
+        console.log("cheguei no getAccount");
+        console.log(this.account);
+        return this.account;
     }
 }
-
-angular.module('foodapp')
-    .factory('loginToMenuService', function () {
-
-        return account = {
-            counter: 1,
-            customer: $scope.user,
-            status: 'Opened',
-            table: table
-        }
-
-        /*
-        function setAccount(account) {
-            savedAccount = account;
-        }
-
-        function getAccount() {
-            return savedAccount;
-        }
-        */
-
-        return {
-            setAccount: function () {
-                return savedAccount;
-            },
-            getAccount: function (account) {
-                savedAccount = savedAccount;
-            }
-        }
-
-    });
 
 //user
 angular.module('foodapp').service('userService', userService);
@@ -122,88 +93,6 @@ function userService($http) {
 }
 
 
-/*
-angular.module('authServices', [])
-    .factory('Auth', function () {
-        var authFactory = {};
-
-        AuthFactory.facebook = function (token) {
-            $window.localStorage.setItem('token', token);
-        }
-
-        //Auth.isLoggedIn
-        AuthFactory.isLoggedIn = function () {
-            if (AuthToken.getToken()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return authFactory;
-
-    })
-
-    .factory('AuthToken', function () {
-        var authTokenFactory = {};
-
-        //authToken.setToken
-        authTokenFactory.setToken = function (token) {
-            $window.localStorage.setItem('token', token);
-        };
-
-        authTokenFactory.getToken = function () {
-            return $window.localStorage.getItem('token');
-        }
-
-        return authTokenFactory;
-    })
-
-angular.module('foodapp').factory('AuthInterceptor', AuthInterceptor);
-function AuthInterceptor($location, $q, $window, AuthFactory) {
-  return {
-    request: request,
-    response: response,
-    responseError: responseError
-  };
-
-  function request(config) {
-    config.headers = config.headers || {};
-    if ($window.sessionStorage.token) {
-      config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-    }
-    return config;
-  }
-
-  function response(response) {
-    if (response.status === 200 && $window.sessionStorage.token && !AuthFactory.isLoggedIn) {
-      AuthFactory.isLoggedIn = true;
-    }
-    if (response.status === 401) {
-      AuthFactory.isLoggedIn = false;
-    }
-    return response || $q.when(response);
-  }
-
-  function responseError(rejection) {
-    if (rejection.status === 401 || rejection.status === 403) {
-      delete $window.sessionStorage.token;
-      AuthFactory.isLoggedIn = false;
-      $location.path('/');
-    }
-    return $q.reject(rejection);
-  }
-}
-
-angular.module('foodapp').factory('AuthFactory', AuthFactory);
-function AuthFactory() {
-  return {
-    auth: auth
-  };
-
-  var auth = {
-    isLoggedIn: false
-  };
-}*/
 
 //http functions
 function complete(response) {

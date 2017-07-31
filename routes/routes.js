@@ -38,9 +38,14 @@ router
     .route('/account')
     .post(accountController.createAccount);
 
+    
 router
     .route('/lastaccount')
     .get(accountController.getLastAccount);
+
+//router
+ //   .route('/getAccountToMenu/:accountId')
+  //  .get(accountController.getAccountToMenu);
 
 //get account or update by its id
 router

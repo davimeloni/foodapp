@@ -1,6 +1,6 @@
 angular.module('foodapp');
 app.controller('menuController', ['$scope', '$modal', '$state',
- 'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state, 
+    'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state,
         itemService, categoryService, accountService) {
 
         $scope.itens = [];
@@ -8,32 +8,25 @@ app.controller('menuController', ['$scope', '$modal', '$state',
         $scope.selectCategory = {};
         $scope.selectCategoryType = '';
         $scope.account = {};
-        //$scope.table = 06;
 
-        $scope.account = accountService.getProperty();
-        console.log($scope.account);
-        
+        $scope.account = accountService.getAccount();
 
-        var setupData = function () {
-            //get categories
-            categoryService.getCategories().then(function (response) {
-                $scope.categories = response.data;
-                $scope.selectedCategory = $scope.categories[0];
-                console.log($scope.categories);
-                $scope.selectedCategoryType = $scope.categories[0].categorytype[0];
-                return $scope.categories;
-            });
+        //get categories
+        categoryService.getCategories().then(function (response) {
+            $scope.categories = response.data;
+            //$scope.selectedCategory = $scope.categories[0];
+            //console.log($scope.categories);
+            //$scope.selectedCategoryType = $scope.categories[0].categorytype[0];
+            return $scope.categories;
+        });
 
-            //get the menu from DB
-            itemService.getItens().then(function (response) {
-                $scope.itens = response.data;
-                return $scope.itens;
-            });
-        }
+        //get the menu from DB
+        itemService.getItens().then(function (response) {
+            $scope.itens = response.data;
+            return $scope.itens;
+        });
 
-        setupData();
-
-        console.log($scope.categories);
+        //--------------------- Select functions ---------------------------------------
 
         $scope.selectCategory = function (selectedCategory) {
             console.log(selectedCategory.categorytype[0]);
@@ -58,6 +51,7 @@ app.controller('menuController', ['$scope', '$modal', '$state',
                 resolve: {}
             });
 
+            modalInstance.account = $scope.account;
             modalInstance.itemToAdd = itemToAdd;
         }
 
@@ -67,6 +61,7 @@ app.controller('menuController', ['$scope', '$modal', '$state',
                 templateUrl: "/views/customer/account.html",
                 resolve: {}
             });
+            modalInstance2.account = $scope.account;
         }
 
     }]);
@@ -76,25 +71,19 @@ app.controller('addItemController', ['$modalInstance', '$scope', 'itemService', 
     function ($modalInstance, $scope, itemService, accountService) {
 
         $scope.itemToAdd = $modalInstance.itemToAdd;
+        $scope.account = $modalInstance.account;
+        console.log($scope.account);
         $scope.comments = '';
 
-        var account = {};
-
-        account._id = '5971ffc8ad411f1be0563a77';
-        account.orderedItens = {};
-
+        //------------- function to add item to cart -------------------------------
         $scope.addItem = function (itemToAdd, comments) {
             preOrderItem = {
                 orderedItem: itemToAdd,
                 status: 'preOrderItem',
                 comments: comments
             }
-
-            account.orderedItens = preOrderItem;
-            console.log(account);
-
-            accountService.addItemAccount(account);
-
+            $scope.account.orderedItens = preOrderItem;
+            accountService.addItemAccount($scope.account);
             $modalInstance.dismiss();
         }
 
@@ -113,11 +102,12 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
         $scope.totalOpened = 0;
         $scope.totalOrdered = 0;
 
-        accountId = '5971ffc8ad411f1be0563a77';
+        $scope.account = $modalInstance.account;
+        console.log($scope.account);
 
         //get account item data
         $scope.getItemData = function () {
-            accountService.getAccount(accountId).then(function (response) {
+            accountService.getAccountById($scope.account._id).then(function (response) {
                 $scope.account = response.data;
                 console.log(response.data.orderedItens);
                 //filter itens
@@ -146,14 +136,14 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
         $scope.removeItem = function (item) {
             console.log("removing item...");
             removeData = {
-                accountId: accountId,
+                accountId: $scope.account._id,
                 itemId: item._id
             }
             accountService.removeItemAccount(removeData);
 
             $scope.preOrderItens = [];
             $scope.processingItens = [];
-
+            
             $scope.getItemData();
             $scope.totalOpened = $scope.totalOpened - item.orderedItem.price;
         }
@@ -164,12 +154,12 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
                 item.status = "Ordered";
             }, this);
             orderData = {
-                accountId: accountId,
+                accountId: $scope.account._id,
                 orderedItens: itens
             };
             console.log(orderData);
             accountService.updateItensAccount(orderData);
-
+            $totalOpened = 0;
             $scope.preOrderItens = [];
             $scope.processingItens = [];
 
