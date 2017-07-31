@@ -28,7 +28,7 @@ var accountSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    client: {
+    customer: {
         type: SchemaTypes.ObjectId, ref: 'User'
     },
     orderedItens: {
@@ -36,6 +36,7 @@ var accountSchema = new mongoose.Schema({
     },
     price: {
         type: Currency,
+        default: 0
     },
     status: {
         type: String,

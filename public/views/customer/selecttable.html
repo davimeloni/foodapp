@@ -1,0 +1,22 @@
+<div class="container" style="margin-top: 100px;">
+    <form style="border: 3px thin gray; padding: 10px;">
+        <h5>
+            <strong>Bem vindo {{user.username}}!</strong>
+            <i style="float: right;" class="glyphicon glyphicon-log-out" ng-click="logout()">Logout</i>
+        </h5>
+        <br/>
+        <p style="text-align: center">Selecione sua mesa para entrar no menu</p>
+
+        <div class="form-group">
+            <label for="table" class="control-label">Mesas: </label>
+            <div class="input-group">
+                <select class="dropdown" id="tablelist" ng-model="table" ng-options="table as table for table in tablelist"></select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <button ng-disabled="!table" class="btn btn-success" ng-click="setDataAndGoToMenu(table)">
+            Acessar o menu!
+        </button>
+        </div>
+    </form>
+</div>

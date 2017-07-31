@@ -3,12 +3,10 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
-var session = require('express-session');
+//var session = require('express-session');
 var passport = require('passport');
-var flash = require('connect-flash');
+//var flash = require('connect-flash');
 
-//require passport config
-require('./config/passport')(passport);
 //connect to DB
 require('./config/db');
 
@@ -20,19 +18,16 @@ var app = express();
 //define port
 app.set('port', (process.env.PORT || '3000'));
 
-
+var socialauth = require('./config/passport')(app, passport);
 //middlewares -------------------------------
 
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(session({
-    secret: 'anystringoftext',
-    saveUninitialized: true,
-    resave: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+
+//app.use(passport.initialize());
+//app.use(passport.session());
+//app.use(flash());
+
 //set directories the app will use
 app.use(express.static(path.join(__dirname, "public")));
 //enable parsing forms
@@ -44,7 +39,6 @@ app.use(function (req, res, next) {
     //print log
     console.log(req.method, req.url);
     console.log(req.cookies);
-    console.log(req.session);
     //call the next function
     next();
 });

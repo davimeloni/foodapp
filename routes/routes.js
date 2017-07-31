@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
+var User = require('../models/user');
 //Set router
 var router = express.Router();
 router.use(bodyParser.json());
@@ -9,6 +10,7 @@ router.use(bodyParser.json());
 var itemController = require('../controllers/item-controller');
 var categoryController = require('../controllers/category-controller');
 var accountController = require('../controllers/account-controller');
+var userController = require('../controllers/user-controller');
 
 //------------------------------------------------------------------------------------
 //item
@@ -35,6 +37,10 @@ router
 router
     .route('/account')
     .post(accountController.createAccount);
+
+router
+    .route('/lastaccount')
+    .get(accountController.getLastAccount);
 
 //get account or update by its id
 router
@@ -66,5 +72,10 @@ router
 router
     .route('/accountskitchen')
     .get(accountController.getAccountItensKitchen);
+
+//user
+router
+    .route('/user/:email')
+    .get(userController.getUserByEmail);
 
 module.exports = router;

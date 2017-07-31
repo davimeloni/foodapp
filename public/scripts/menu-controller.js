@@ -1,25 +1,44 @@
 angular.module('foodapp');
-app.controller('menuController', ['$scope', '$modal', '$state', 'itemService', 'categoryService', 'accountService',
-    function ($scope, $modal, $state, itemService, categoryService, accountService) {
+app.controller('menuController', ['$scope', '$modal', '$state',
+ 'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state, 
+        itemService, categoryService, accountService) {
 
         $scope.itens = [];
         $scope.categories = [];
-        $scope.table = 06;
-        
-        //get categories
-        categoryService.getCategories().then(function (response) {
-            $scope.categories = response.data;
-            
-        });
+        $scope.selectCategory = {};
+        $scope.selectCategoryType = '';
+        $scope.account = {};
+        //$scope.table = 06;
 
-        //get the menu from DB
-        itemService.getItens().then(function (response) {
-            $scope.itens = response.data;
-        });
+        $scope.account = accountService.getProperty();
+        console.log($scope.account);
+        
+
+        var setupData = function () {
+            //get categories
+            categoryService.getCategories().then(function (response) {
+                $scope.categories = response.data;
+                $scope.selectedCategory = $scope.categories[0];
+                console.log($scope.categories);
+                $scope.selectedCategoryType = $scope.categories[0].categorytype[0];
+                return $scope.categories;
+            });
+
+            //get the menu from DB
+            itemService.getItens().then(function (response) {
+                $scope.itens = response.data;
+                return $scope.itens;
+            });
+        }
+
+        setupData();
+
+        console.log($scope.categories);
 
         $scope.selectCategory = function (selectedCategory) {
             console.log(selectedCategory.categorytype[0]);
             $scope.selectedCategory = selectedCategory;
+            console.log($scope.selectedCategory);
             $scope.selectedCategoryType = selectedCategory.categorytype[0];
         }
 

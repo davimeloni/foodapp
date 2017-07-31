@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
+var passportLocalMongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
-//var passportLocalMongoose = require('passport-local-mongoose');
 
 var userSchema = new Schema({
     username: String,
@@ -8,17 +8,9 @@ var userSchema = new Schema({
     password: String,
     OauthId: String,
     OauthToken: String,
-    firstname: {
-        type: String,
-        default: ''
-    },
-    lastname: {
-        type: String,
-        default: ''
-    },
     kind: {
         type: String,
-        required: true
+        
     },
     isLogged: {
         type: Boolean
@@ -28,6 +20,8 @@ var userSchema = new Schema({
         default: false
     }
 });
+
+//userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;

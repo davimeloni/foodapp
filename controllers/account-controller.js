@@ -5,12 +5,23 @@ var mongoose = require('mongoose');
 var Account = require('../models/account');
 
 module.exports.createAccount = function (req, res) {
+    console.log('chegando aqui?');
+    console.log(req.body);
 
     Account.create(req.body, function (err, account) {
         if (err) throw err;
         console.log(account._id + " account was created");
     });
 
+}
+
+module.exports.getLastAccount = function(req, res) {
+    Account.findOne().sort({'createdAt': -1})
+            .exec(function (err, account) {
+                if (err) throw err;
+                res.json(account.counter);
+                console.log(account.counter);
+            });
 }
 
 module.exports.getAccount = function (req, res) {

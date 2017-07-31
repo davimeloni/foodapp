@@ -1,15 +1,9 @@
 var app = angular.module('foodapp', ["ui.router", "ui.bootstrap"]);
 
 
-app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+app.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", function($stateProvider, $locationProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state("test", {
-     url: "/#",
-     templateUrl: "/views/customer/menuv8.html",
-     controller: "menuController",
-     css: "/styles/menuv8.css"
-  })
     .state("menu", {
      url: "/menu",
      templateUrl: "/views/customer/menuv9.html",
@@ -31,7 +25,19 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
       templateUrl: "/views/restaurant/itenstodelivery.html",
       controller: "deliveryItemController"
     })
+    .state("login2", {
+      url: "/login2",
+      templateUrl: "/views/login2.html",
+      controller: "LoginController"
+    })
+    .state("selecttable", {
+      url: "/selecttable/:email/:token",
+      templateUrl: "/views/customer/selecttable.html",
+      controller: "selectTableController"
+    });
 
+     //$locationProvider.html5Mode(true);
+    //$locationProvider.hashPrefix('');
 
 }]);
 
