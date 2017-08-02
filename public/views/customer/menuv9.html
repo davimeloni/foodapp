@@ -38,8 +38,6 @@
                         <div class="col-xs-4 col-md-4">
                             <span id="accounticon" style="float: right;" ng-click="openAccount()">
                                  <i class="glyphicon glyphicon-list-alt"></i>
-                                <!--<img style="margin-left: 8px;" src="images/conta.png"
-                                     width="20" height="20" alt="account" ng-click="openAccount()"/>-->
                                 <br/>
                                 <p>Conta</p>
                             </span>
@@ -53,7 +51,7 @@
 
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx content xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
-    <div id="container" ng-controller="menuController">
+    <div id="container">
         <div class="row no-gutter">
             <div class="tabbable tabs-right">
 
@@ -75,11 +73,8 @@
 
                                 </div>
                                 <div class="media-bottom" style="text-align: center; padding-top: 10px;">
-                                    <span class="fa fa-facebook-official"></span> Comentar
+                                    <!--<span class="fa fa-facebook-official"></span> Comentar-->
                                     <i class="fa fa-2x fa-cart-plus" style="float: right; padding-bottom: 5px;" ng-click="openAddItem(item)"></i>
-                                    <!--<button style="float: right;" ng-click="openAddItem(item)">
-                                        Add. 
-                                    </button>-->
                                 </div>
 
                             </li>
@@ -91,8 +86,7 @@
                 <div class="col-xs-1 col-md-1">
                     <div class="tabbed">
                         <ul id="tabs">
-                            <li ng-repeat="ct in selectedCategory.categorytype" ng-click="selectCategoryType(ct, $index)" 
-                                ng-class="{selCT: $index == selectedCT}">
+                            <li ng-repeat="ct in selectedCategory.categorytype" ng-click="selectCategoryType(ct, $index)" ng-class="{selCT: $index == selectedCT}">
                                 <span>{{ct}}</span>
                             </li>
                             <br>

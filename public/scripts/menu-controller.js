@@ -1,6 +1,6 @@
 angular.module('foodapp');
-app.controller('menuController', ['$scope', '$modal', '$state', '$filter',
-    'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state, $filter,
+app.controller('menuController', ['$rootScope', '$scope', '$modal', '$state', '$filter',
+    'itemService', 'categoryService', 'accountService', function ($rootScope, $scope, $modal, $state, $filter,
         itemService, categoryService, accountService) {
 
         $scope.itens = [];
@@ -12,6 +12,9 @@ app.controller('menuController', ['$scope', '$modal', '$state', '$filter',
         $scope.iconsClass = "defaultC";
         $scope.selectedC = -1;
         $scope.selectedCT = -1;
+        
+        $scope.filter = '';
+        $scope.filter.$stateful = true;
 
         $scope.account = accountService.getAccount();
 
@@ -40,7 +43,8 @@ app.controller('menuController', ['$scope', '$modal', '$state', '$filter',
             $scope.selectedCategory = selectedCategory;
             console.log($scope.selectedCategory);
             $scope.selectedC = index;
-
+            $scope.filter = selectedCategory.categorytype[0];
+            $scope.selectedCT = 0;
         }
 
         $scope.selectCategoryType = function (selectedCategoryType, index) {
