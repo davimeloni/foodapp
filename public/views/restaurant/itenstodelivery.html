@@ -1,7 +1,7 @@
 <div class="container" ng-controller="deliveryItemController">
     <ul class="list-group" id="itensToDeliveryPerAccount" ng-repeat="account in accounts | orderBy: _id " >
 
-        {{account.user.name}}
+        {{account.user.username}}
 
         <li class="list-group-item" id="itemToDelivery" ng-repeat="item in account.orderedItens | filter: 'readyToDelivery' ">
             {{item.orderedItem.name}} - {{item.status}}

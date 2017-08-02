@@ -11,13 +11,13 @@ header{
     background-color: red !important;
     color: white;
     position:fixed; 
-    z-index: 4;
+    z-index:3;
     top:0; left:0;
     width:100%;
     height:70px;
     padding-top: 10;
     padding-bottom: 10;
-    box-shadow: rgba(0,0,0,.1) -2px 3px 5px, inset rgba(255,255,255,.09) 1px 0;
+    box-shadow: rgba(0,0,0,.1) -2px 2px 5px, inset rgba(255,255,255,.09) 1px 0;
     font-size: 12px;
     font-weight: bold;
 }
@@ -52,10 +52,6 @@ footer {
     padding-right: 15px;
     padding-top: 5px;
     padding-bottom: 15px;
-    font-size:10px;
-    text-align: center;
-    color: #777;
-    text-decoration:none;
 }
 
 #bottomNav a {
@@ -72,7 +68,7 @@ footer {
     text-decoration:none;
 }
 
-.selC {
+.clicked {
     font-style: italic;
     color: red;
 }
@@ -108,24 +104,19 @@ body {
 /* custom inclusion of right tabs */
 
 .tabbed {
+    
     margin-top: 70px;
     margin-bottom: 48px;
     -webkit-overflow-scrolling:touch;
-    overflow:hidden;
+    overflow:auto;
+    
     transition: border 250ms ease;
-    width: 170%;
-    border-left: 2px solid tomato;
-}
+    width: 180%;
 
+}
 .tabbed ul {
     float: none;
-    overflow: hidden;
     list-style-type: none;
-}
-
-.tabbed ul * {
-    margin: 0px;
-    padding: 0px;
 }
 
 .tabbed ul li {
@@ -134,38 +125,40 @@ body {
     background-color: #FFF;
     text-align: center;
     z-index: 2;
-    margin-bottom: 30px;
-    height: 100px;
-    word-wrap: break-word;
-    width: 100%;
+    margin-bottom: 20px;
+    
+    height: 80px;
+
+    width: 95%;
+    
     position: relative;
     cursor: pointer;
     color: #777;
     writing-mode: tb-rl;
     font: 600 10px/16px roboto, "Open Sans", Helvetica, sans-serif;
     font-size: 3vw;
+    
     transition: all 250ms ease;
     background-color:#fafafa;
 }
 
 .tabbed ul li:before,
 .tabbed ul li:after {
-    position: absolute;
-    z-index: -1;
     display: block;
     content: " ";
+    position: absolute;
     margin-top: 5px;
-    height: 30%;
+    height: 37%;
     width: 100%; 	
+    
     transition: all 250ms ease;
     background-color:#fafafa;
 }
-
 .tabbed ul li:before {
     right: 0;
     top: -22px;
     transform: skew(0deg, 30deg);
-    box-shadow: rgba(0,0,0,.1) 0px -2px 2px 0px, inset rgba(255,255,255,.09) 1px 0;
+    box-shadow: rgba(0,0,0,.1) 0px -2px 5px 0px, inset rgba(255,255,255,.09) 1px 0;
     border-radius: 0 8px 0 0;
     
 }
@@ -174,17 +167,26 @@ body {
     right: 0;
     bottom: -18px;
     transform: skew(0deg, -30deg);
-    box-shadow: rgba(0,0,0,.1) 0px 2px 2px, inset rgba(255,255,255,.09) 1px 0;
+    box-shadow: rgba(0,0,0,.1) -2px 2px 5px, inset rgba(255,255,255,.09) 1px 0;
     border-radius: 0 0 8px 0;
 }
+.tabbed ul li:hover,
+.tabbed ul li:hover:after,
+.tabbed ul li:hover:before {
+    background-color: #F4F7F9;
+    color: #444;
 
-.tabbed ul li.selCT,
-.tabbed ul li.selCT:before,
-.tabbed ul li.selCT:after {
-    z-index: 3;
-    background-color: tomato;
+}
+
+.tabbed ul li.active,
+.tabbed ul li.active:before,
+.tabbed ul li.active:after {
+    
+    background-color: brown;
     color: #fff;
 }
+
+
 
 /*list menu*/
 
@@ -194,9 +196,9 @@ body {
     overflow:auto;
     padding: 70px 0 65px 0;
     margin-left: -20px;
-    /*border-right: 2px solid black;*/
     
 }
+
 
 .tab-content > ul > li {
     background-color:#fafafa;

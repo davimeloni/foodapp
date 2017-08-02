@@ -14,7 +14,7 @@ app.controller('kitchenController', ['$state', '$scope', 'itemService', 'account
                 if (item.status == "Ordered") {
                     $scope.itensToCook.push({
                         accountId: account._id,
-                        accountUser: "",
+                        accountUser: account.customer.username,
                         _id: item._id,
                         orderedItemUpdatedAt: item.updatedAt,
                         status: item.status,

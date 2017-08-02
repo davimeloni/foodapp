@@ -5,15 +5,18 @@ var mongoose = require('mongoose');
 var Account = require('../models/account');
 
 module.exports.createAccount = function (req, res) {
-    Account.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, account) {
+    Account.findOne({}, {}, { sort: { 'createdAt': -1 } }, function (err, account) {
         if (err) throw (err);
-        
-        var newAccount = new Account(req.body);
-        newAccount.counter = account.counter + 100;
-        console.log(newAccount);
+        var increment = 1;
 
+        if (account) {
+            increment = account.counter + 1;
+        }
+        var newAccount = new Account(req.body);
+        newAccount.counter = increment;
+        console.log(newAccount);
         newAccount.save(function (err, accountCreated) {
-            if (err) throw(err);
+            if (err) throw (err);
             console.log("account created");
             console.log(accountCreated);
             res.json(accountCreated);
@@ -21,6 +24,7 @@ module.exports.createAccount = function (req, res) {
     });
 }
 
+//get the last account created
 module.exports.getLastAccount = function (req, res) {
     Account.findOne().sort({ 'createdAt': -1 })
         .exec(function (err, account) {
@@ -30,9 +34,11 @@ module.exports.getLastAccount = function (req, res) {
         });
 }
 
+//get account by id
 module.exports.getAccount = function (req, res) {
     Account.findById(req.params.accountId)
         .populate('orderedItens.orderedItem')
+        .populate('customer')
         .exec(function (err, account) {
             if (err) throw err;
             console.log(account.counter + " getting...");
@@ -48,6 +54,7 @@ module.exports.updateAccount = function (req, res) {
     });
 }
 
+//add item to an account
 module.exports.addItemAccount = function (req, res) {
     console.log(req.body);
 
@@ -98,12 +105,10 @@ module.exports.updateItensAccount = function (req, res) {
 
 //delete item from account
 module.exports.deleteItemAccount = function (req, res) {
-
     Account.findOneAndUpdate({ _id: req.params.accountId }, { $pull: { orderedItens: { _id: req.params.itemId } } }, function (err, account) {
         if (err) throw err;
         console.log("item deleted");
     });
-
 }
 
 //get accounts for kitchen
@@ -119,9 +124,9 @@ module.exports.getAccountItensKitchen = function (req, res) {
 
 //get accounts by status
 module.exports.getItensAccountsByStatus = function (req, res) {
-
-    Account.find({ "orderedItens.status": "readyToDelivery" })
+    Account.find({ "status": "Opened" })
         .populate('orderedItens.orderedItem')
+        .populate('customer')
         .exec(function (err, accounts) {
             if (err) throw err;
             res.json(accounts);

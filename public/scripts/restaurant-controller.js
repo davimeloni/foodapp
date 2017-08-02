@@ -27,3 +27,22 @@ app.controller('deliveryItemController', ['$state', '$scope', 'itemService', 'ac
     }
 
 }]);
+
+app.controller('manageAccountsController', ['$state', '$scope', 'itemService', 'accountService', function ($state, $scope, itemService, accountService) {
+
+    $scope.itens = [];
+    $scope.accounts = [];
+    $scope.accountsToShow = [];
+    $scope.accountPrice = 0;
+
+    accountService.getItensAccountsByStatus().then(function(response) {
+        $scope.accounts = response.data;
+        console.log($scope.accounts);
+        $scope.accounts.forEach(function(account) {
+            
+            
+        }, this);
+    });
+
+
+}]);

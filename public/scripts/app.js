@@ -34,6 +34,11 @@ app.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", functio
       url: "/selecttable/:email/:token",
       templateUrl: "/views/customer/selecttable.html",
       controller: "selectTableController"
+    })
+    .state("manageaccounts", {
+      url: "/manageaccounts",
+      templateUrl: "/views/restaurant/manageaccounts.html",
+      controller: "manageAccountsController"
     });
 
      //$locationProvider.html5Mode(true);

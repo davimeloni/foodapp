@@ -1,6 +1,6 @@
 angular.module('foodapp');
-app.controller('menuController', ['$scope', '$modal', '$state',
-    'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state,
+app.controller('menuController', ['$scope', '$modal', '$state', '$filter',
+    'itemService', 'categoryService', 'accountService', function ($scope, $modal, $state, $filter,
         itemService, categoryService, accountService) {
 
         $scope.itens = [];
@@ -8,6 +8,10 @@ app.controller('menuController', ['$scope', '$modal', '$state',
         $scope.selectCategory = {};
         $scope.selectCategoryType = '';
         $scope.account = {};
+        filteredItens = [];
+        $scope.iconsClass = "defaultC";
+        $scope.selectedC = -1;
+        $scope.selectedCT = -1;
 
         $scope.account = accountService.getAccount();
 
@@ -26,18 +30,23 @@ app.controller('menuController', ['$scope', '$modal', '$state',
             return $scope.itens;
         });
 
+
+
         //--------------------- Select functions ---------------------------------------
 
-        $scope.selectCategory = function (selectedCategory) {
+        $scope.selectCategory = function (selectedCategory, index) {
             console.log(selectedCategory.categorytype[0]);
+            $scope.selectedCategoryType = selectedCategory.categorytype[0];
             $scope.selectedCategory = selectedCategory;
             console.log($scope.selectedCategory);
-            $scope.selectedCategoryType = selectedCategory.categorytype[0];
+            $scope.selectedC = index;
+
         }
 
-        $scope.selectCategoryType = function (selectedCategoryType) {
+        $scope.selectCategoryType = function (selectedCategoryType, index) {
             console.log(selectedCategoryType);
             $scope.selectedCategoryType = selectedCategoryType;
+            $scope.selectedCT = index;
         }
 
 
@@ -91,8 +100,8 @@ app.controller('addItemController', ['$modalInstance', '$scope', 'itemService', 
 
 
 //Controller for the Account
-app.controller('accountController', ['$modalInstance', '$state', '$scope', 'itemService', 'accountService',
-    function ($modalInstance, $state, $scope, itemService, accountService) {
+app.controller('accountController', ['$modalInstance', '$state', '$scope', '$location', '$window', 'itemService', 'accountService',
+    function ($modalInstance, $state, $scope, location, $window, itemService, accountService) {
 
         var removeData = {};
         var orderData = {};
@@ -143,7 +152,7 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
 
             $scope.preOrderItens = [];
             $scope.processingItens = [];
-            
+
             $scope.getItemData();
             $scope.totalOpened = $scope.totalOpened - item.orderedItem.price;
         }
@@ -155,7 +164,7 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
             }, this);
             orderData = {
                 accountId: $scope.account._id,
-                orderedItens: itens
+                orderedItens: itens,
             };
             console.log(orderData);
             accountService.updateItensAccount(orderData);
@@ -165,6 +174,8 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', 'item
 
             $scope.getItemData();
         }
+
+        //end acount for now
 
     }]);
 

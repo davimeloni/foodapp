@@ -1,0 +1,23 @@
+<div class="container" >
+    <h5 style="text-align: center"><strong>Contas Abertas</strong></h5>
+    <ul class="media-list">
+        <li style="font-size: 12px;" class="media list-group-item" ng-repeat="account in accounts">
+            <div class="media-heading">
+                <span>{{account.customer.username}}</span>
+                <span style="float: right">Mesa: {{account.table}}</span>
+            </div>
+            <div class="media-body">
+                <ul class="list-group">
+                    <li style="font-size: 10px; margin-bottom: -10px;" class="list-group-item" ng-repeat="item in account.orderedItens">
+                        {{item.orderedItem.name}} - {{item.status}}
+                        <br/>
+                        Commentario: {{item.comments}}
+                </ul>
+            </div>
+            <div class="media-bottom">
+                <span>Conta no. {{account.counter}}</span>
+                <span style="float: right;">{{account.price}}</span>
+            </div>
+        </li>
+    </ul>
+</div>
