@@ -10,8 +10,8 @@ app.controller('menuController', ['$rootScope', '$scope', '$modal', '$state', '$
         $scope.account = {};
         filteredItens = [];
         $scope.iconsClass = "defaultC";
-        $scope.selectedC = -1;
-        $scope.selectedCT = -1;
+        $scope.selectedC = 0;
+        $scope.selectedCT = 0;
         
         $scope.filter = '';
         $scope.filter.$stateful = true;
@@ -21,9 +21,9 @@ app.controller('menuController', ['$rootScope', '$scope', '$modal', '$state', '$
         //get categories
         categoryService.getCategories().then(function (response) {
             $scope.categories = response.data;
-            //$scope.selectedCategory = $scope.categories[0];
-            //console.log($scope.categories);
-            //$scope.selectedCategoryType = $scope.categories[0].categorytype[0];
+            $scope.selectedCategory = $scope.categories[0];
+            console.log($scope.categories);
+            $scope.selectedCategoryType = $scope.categories[0].categorytype[0];
             return $scope.categories;
         });
 
@@ -33,10 +33,7 @@ app.controller('menuController', ['$rootScope', '$scope', '$modal', '$state', '$
             return $scope.itens;
         });
 
-
-
         //--------------------- Select functions ---------------------------------------
-
         $scope.selectCategory = function (selectedCategory, index) {
             console.log(selectedCategory.categorytype[0]);
             $scope.selectedCategoryType = selectedCategory.categorytype[0];
@@ -53,10 +50,7 @@ app.controller('menuController', ['$rootScope', '$scope', '$modal', '$state', '$
             $scope.selectedCT = index;
         }
 
-
-
         //------------------------open modals------------------------------
-
         $scope.openAddItem = function (itemToAdd) {
             var modalInstance = $modal.open({
                 controller: "addItemController",
