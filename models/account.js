@@ -35,7 +35,7 @@ var accountSchema = new mongoose.Schema({
         type: [orderItemSchema]
     },
     price: {
-        type: Currency,
+        type: Number,
         default: 0
     },
     status: {
