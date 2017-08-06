@@ -39,7 +39,12 @@ app.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", functio
       url: "/manageaccounts",
       templateUrl: "/views/restaurant/manageaccounts.html",
       controller: "manageAccountsController"
-    });
+    })
+    .state("accountstable", {
+      url: "/accountstable",
+      templateUrl: "/views/admin/accountstable.html",
+      controller: "accountsTableController"
+    })
 
      //$locationProvider.html5Mode(true);
     //$locationProvider.hashPrefix('');

@@ -1,0 +1,49 @@
+<div class="container">
+
+    <table class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Number</th>
+                <th>Customer</th>
+                <th>Table</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Price</th>
+            </tr>
+            <tbody ng-repeat="account in accounts">
+                <tr>
+                    <td>
+                        <a class="btn btn-link" ng-init="toggle[$index] = false" ng-click="toggle[$index] = !toggle[$index]">
+                            <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                            <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                        </a>
+                    </td>
+                    <td>{{account.counter}}</td>
+                    <td>{{account.customer.username}}</td>
+                    <td>{{account.table}}</td>
+                    <td>{{account.status}}</td>
+                    <td>{{account.createdAt | date:'MM/dd/yyyy @ h:mma'}}</td>
+                    <td>{{account.updatedAt | date:'medium'}}</td>
+                    <td>{{account.price | currency}}</td>
+                </tr>
+                <tr ng-if="toggle[$index]">
+                    <td colspan="8">
+                       <div class="row-fluid" style="text-align: center justify; margin-left: 100px;" ng-repeat="item in account.orderedItens">
+                           <div class="col-md-4">
+                                <span>Item: {{item.orderedItem.name}}</span>
+                           </div>
+                           <div class="col-md-4">
+                               <span>Status: {{item.status}}</span>
+                           </div>
+                           <div id="price" class="col-md-4">
+                               <span>Preço: {{item.orderedItem.price | currency}}</span>
+                           </div>
+                       </div>
+                    </td>
+                </tr>
+            </tbody>
+
+
+</div>

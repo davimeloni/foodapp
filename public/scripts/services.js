@@ -44,6 +44,10 @@ function accountService($http) {
         return $http.post('/account', account).then(complete).catch(failed);
     };
 
+    this.getAllAccounts = function() {
+        return $http.get('/account').then(complete).catch(failed);
+    }
+
     this.getAccountById = function(accountId) {
         return $http.get('/account/' + accountId).then(complete).catch(failed);
     }
@@ -60,8 +64,12 @@ function accountService($http) {
         return $http.put('/account/' + orderData.accountId + '/updateitens', orderData).then(complete).catch(failed);
     };
 
+    //this.removeItemAccount = function (removeData) {
+      //  return $http.delete('/account/' + removeData.accountId + '/item/' + removeData.itemId).then(complete).catch(failed);
+    //}
+
     this.removeItemAccount = function (removeData) {
-        return $http.delete('/account/' + removeData.accountId + '/item/' + removeData.itemId).then(complete).catch(failed);
+        return $http.put('/account/' + removeData.accountId + '/deleteitem/' + removeData.itemId, removeData).then(complete).catch(failed);
     }
 
     this.getAccountsKitchen = function () {
@@ -70,6 +78,10 @@ function accountService($http) {
 
     this.getItensAccountsByStatus = function () {
         return $http.get('/accountstatus').then(complete).catch(failed);
+    }
+
+    this.updateAccount = function(account) {
+        return $http.put('/account/' + account._id, account).then(complete).catch(failed);
     }
 
 

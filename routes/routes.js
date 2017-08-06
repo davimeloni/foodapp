@@ -36,7 +36,8 @@ router
 //create account
 router
     .route('/account')
-    .post(accountController.createAccount);
+    .post(accountController.createAccount)
+    .get(accountController.getAllAccounts);
 
     
 router
@@ -65,8 +66,8 @@ router
 
 //specific item in account
 router
-    .route('/account/:accountId/item/:itemId')
-    .delete(accountController.deleteItemAccount);
+    .route('/account/:accountId/deleteitem/:itemId/')
+    .put(accountController.deleteItemAccount);
 
 //get itens by status
 router

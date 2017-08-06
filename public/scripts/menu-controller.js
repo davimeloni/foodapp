@@ -86,7 +86,7 @@ app.controller('addItemController', ['$modalInstance', '$scope', 'itemService', 
         $scope.addItem = function (itemToAdd, comments) {
             preOrderItem = {
                 orderedItem: itemToAdd,
-                status: 'preOrderItem',
+                status: 'Cart',
                 comments: comments
             }
             $scope.account.orderedItens = preOrderItem;
@@ -119,11 +119,11 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', '$loc
                 console.log(response.data.orderedItens);
                 //filter itens
                 $scope.account.orderedItens.forEach(function (filterItem) {
-                    if (filterItem.status == "preOrderItem") {
+                    if (filterItem.status == "Cart") {
                         console.log(filterItem.orderedItem.name + " - " + filterItem.status);
                         $scope.preOrderItens.push(filterItem);
                         $scope.totalOpened = $scope.totalOpened + filterItem.orderedItem.price;
-                    } else if (filterItem.status == "Delivered") {
+                    } else if (filterItem.status == "Cooked") {
                         $scope.deliveredItens.push(filterItem);
                         $scope.totalOrdered = $scope.totalOrdered + filterItem.orderedItem.price;
                     } else {
@@ -144,15 +144,18 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', '$loc
             console.log("removing item...");
             removeData = {
                 accountId: $scope.account._id,
-                itemId: item._id
+                itemId: item._id,
+                item: item
             }
+            console.log(removeData);
             accountService.removeItemAccount(removeData);
 
             $scope.preOrderItens = [];
             $scope.processingItens = [];
-
-            $scope.getItemData();
             $scope.totalOpened = $scope.totalOpened - item.orderedItem.price;
+            
+            $scope.getItemData();
+            
         }
 
         //order the opened itens
@@ -166,7 +169,7 @@ app.controller('accountController', ['$modalInstance', '$state', '$scope', '$loc
             };
             console.log(orderData);
             accountService.updateItensAccount(orderData);
-            $totalOpened = 0;
+            $scope.totalOpened = 0;
             $scope.preOrderItens = [];
             $scope.processingItens = [];
 

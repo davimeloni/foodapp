@@ -24,6 +24,18 @@ module.exports.createAccount = function (req, res) {
     });
 }
 
+//get all accounts
+module.exports.getAllAccounts = function(req, res) {
+    Account.find({})
+            .populate('orderedItens.orderedItem')
+            .populate('customer')
+            .exec(function(err, accounts) {
+                if (err) throw err;
+                console.log("getting all accounts");
+                res.json(accounts);
+    })
+}
+
 //get the last account created
 module.exports.getLastAccount = function (req, res) {
     Account.findOne().sort({ 'createdAt': -1 })
@@ -46,11 +58,13 @@ module.exports.getAccount = function (req, res) {
         })
 }
 
+//update account
 module.exports.updateAccount = function (req, res) {
     console.log(req.body);
     Account.findByIdAndUpdate(req.params.accountId, { $set: req.body }, { new: true }, function (err, account) {
         if (err) throw err;
         console.log(account._id + " account was updated");
+        console.log(account);
     });
 }
 
@@ -62,12 +76,15 @@ module.exports.addItemAccount = function (req, res) {
         if (err) throw err;
         console.log("account found.." + account._id);
         account.orderedItens.push(req.body.orderedItens);
+        account.price = account.price + req.body.orderedItens.orderedItem.price;
 
         console.log(account._id);
 
         account.save(function (err, account) {
             if (err) throw err;
             console.log("account updated with new item");
+            console.log("printing the new account");
+            console.log(account);
         })
 
     });
@@ -108,6 +125,15 @@ module.exports.deleteItemAccount = function (req, res) {
     Account.findOneAndUpdate({ _id: req.params.accountId }, { $pull: { orderedItens: { _id: req.params.itemId } } }, function (err, account) {
         if (err) throw err;
         console.log("item deleted");
+        console.log(req.body);
+        account.price = account.price - req.body.item.orderedItem.price;
+
+        account.save(function(err, account) {
+            if (err) throw err;
+            console.log("updated account");
+            console.log(account);
+        })
+
     });
 }
 
@@ -115,6 +141,7 @@ module.exports.deleteItemAccount = function (req, res) {
 module.exports.getAccountItensKitchen = function (req, res) {
     Account.find({ $or: [{ "orderedItens.status": "Ordered" }, { "orderedItens.status": "Cooking" }] })
         .populate('orderedItens.orderedItem')
+        .populate('customer')
         .exec(function (err, accounts) {
             if (err) throw err;
             res.json(accounts);

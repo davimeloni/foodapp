@@ -1,6 +1,7 @@
 <head>
     <link href="styles/kitchen.css" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="container">
@@ -11,49 +12,61 @@
                 <ul class="list-group" id="itensOrdered">
                     <div class="form-group">
                         <button class="btn btn-primary" ng-click="cookItens()">
-                        Cook it!
-                    </button>
-                        <button class="btn btn-warning" ng-click="cookItem()">
-                        Deny it!
-                    </button>
+                            Cook it!
+                        </button>
                         <label style="float: right">
                             Select All
                             <input type="checkbox" ng-click="selectAllItensToCook()">
-                    </label>
+                        </label>
                     </div>
                     <li class="list-group-item" id="orderedItem" ng-repeat="itemtc in itensToCook | orderBy:'orderedItemUpdatedAt' ">
                         <span>
-                        Name - Ordered at: {{itemtc.orderedItemUpdatedAt}}
-                        <label style="float: right" >
-                            Select Item
-                            <input type="checkbox" ng-model="itemtc.selected">
-                        </label>
-                    </span>
-                        <br/> {{itemtc.orderedItem.name}} - {{itemtc.selected}}
+                                {{itemtc.orderedItem.name}}
+                                <label style="float: right" >
+                                    Select Item
+                                    <input type="checkbox" ng-model="itemtc.selected">
+                                </label>
+                            </span>
+                        <br/>
+                        <span>
+                                Comments: {{itemtc.comments}}
+                            </span>
+                        <br/>
+                        <span>
+                            {{itemtc.accountUser}} <strong style="float: right">Table {{itemtc.table}}</strong>
+                            </span>
                     </li>
                 </ul>
             </div>
 
             <div class="col-md-6">
-                <h3 style="text-align: center">Items cooked</h3>
+                <h3 style="text-align: center">Items cooking</h3>
                 <ul class="list-group" id="cookingItens">
                     <div class="form-group">
                         <button class="btn btn-success" ng-click="finishItem(item)">
-                        Ready!
-                    </button>
+                            Ready!
+                        </button>
                         <label style="float: right">
-                            Select All
-                            <input type="checkbox" ng-click="selectAllItensCooking()">
-                    </label>
+                                Select All
+                                <input type="checkbox" ng-click="selectAllItensCooking()">
+                        </label>
                     </div>
                     <li class="list-group-item" id="cookingItem" ng-repeat="item in itensCooking | orderBy:'orderedItemUpdatedAt' ">
-                        <span> Name - Ordered at: {{item.orderedItemUpdatedAt}}
-                        <label style="float: right">
-                            Select Item
-                            <input type="checkbox" ng-model="item.selected">
-                        </label>
-                    </span>
-                        <br/> {{item.orderedItem.name}}
+                        <span>
+                                {{item.orderedItem.name}}
+                                <label style="float: right" >
+                                    Select Item
+                                    <input type="checkbox" ng-model="itemtc.selected">
+                                </label>
+                            </span>
+                        <br/>
+                        <span>
+                                Comments: {{item.comments}}
+                            </span>
+                        <br/>
+                        <span>
+                            {{item.accountUser}} <strong style="float: right">Table {{item.table}}</strong>
+                            </span>
                     </li>
                 </ul>
 

@@ -7,6 +7,7 @@ app.controller('kitchenController', ['$state', '$scope', 'itemService', 'account
     //get account itens to_cook and cooking to display right on the screen
     accountService.getAccountsKitchen().then(function (response) {
         $scope.accounts = response.data;
+        console.log($scope.accounts);
 
         $scope.accounts.forEach(function (account) {
 
@@ -15,16 +16,19 @@ app.controller('kitchenController', ['$state', '$scope', 'itemService', 'account
                     $scope.itensToCook.push({
                         accountId: account._id,
                         accountUser: account.customer.username,
+                        table: account.table,
                         _id: item._id,
                         orderedItemUpdatedAt: item.updatedAt,
                         status: item.status,
                         orderedItem: item.orderedItem,
+                        comments: item.comments,
                         selected: false
                     });
                 } else if (item.status == "Cooking") {
                     $scope.itensCooking.push({
                         accountId: account._id,
-                        accountUser: "",
+                        accountUser: account.customer.username,
+                        table: account.table,
                         _id: item._id,
                         orderedItemUpdatedAt: item.updatedAt,
                         status: item.status,
@@ -83,7 +87,7 @@ app.controller('kitchenController', ['$state', '$scope', 'itemService', 'account
     $scope.finishItem = function () {
         $scope.itensCooking.forEach(function (item) {
             if (item.selected == true) {
-                item.status = "readyToDelivery";
+                item.status = "Cooked";
                 updateItemData = {
                     accountId: item.accountId,
                     orderedItens: item

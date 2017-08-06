@@ -1,23 +1,48 @@
-<div class="container" >
+<div class="container" style="margin-top: 20px;">
     <h5 style="text-align: center"><strong>Contas Abertas</strong></h5>
-    <ul class="media-list">
-        <li style="font-size: 12px;" class="media list-group-item" ng-repeat="account in accounts">
-            <div class="media-heading">
-                <span>{{account.customer.username}}</span>
-                <span style="float: right">Mesa: {{account.table}}</span>
-            </div>
-            <div class="media-body">
-                <ul class="list-group">
-                    <li style="font-size: 10px; margin-bottom: -10px;" class="list-group-item" ng-repeat="item in account.orderedItens">
-                        {{item.orderedItem.name}} - {{item.status}}
-                        <br/>
-                        Commentario: {{item.comments}}
-                </ul>
-            </div>
-            <div class="media-bottom">
-                <span>Conta no. {{account.counter}}</span>
-                <span style="float: right;">{{account.price}}</span>
-            </div>
-        </li>
-    </ul>
+    <div style="margin-bottom: 40px;">
+        <ul class="media-list">
+            <li style="font-size: 12px;" class="media list-group-item" ng-repeat="account in accounts">
+                <div class="media-heading">
+                    <a class="btn btn-link" ng-init="toggle[$index] = false" ng-click="toggle[$index] = !toggle[$index]">
+                    <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                    <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                </a>
+                    <span>{{account.customer.username}}</span>
+                    <span style="float: right">Mesa: {{account.table}}</span>
+                </div>
+                <div class="media-body">
+                    <ul ng-if="toggle[$index]" class="list-group">
+                        <li style="font-size: 10px; margin-bottom: -10px;" class="list-group-item" ng-repeat="item in account.orderedItens">
+                            <span>
+                            {{item.orderedItem.name}} - {{item.status}}
+                            <i style="float: right;" class="fa fa-times-circle" ng-click="removeItem(account, item)"></i>
+                        </span>
+                            <br/> Commentario: {{item.comments}}
+                    </ul>
+                </div>
+                <div class="media-bottom">
+                    <span>Conta no. {{account.counter}}</span>
+                    <span ng-click="closeAccount(account)" style="margin-left: 50px; border: 1px solid black;">
+                        Encerrar
+                        <i class="fa fa-check-square-o"></i>
+                    </span>
+                    <span style="float: right;">{{account.price | currency}}</span>
+                </div>
+                </li>
+        </ul>
+    </div>
+
+    <footer style="position:fixed; 
+                   z-index:2;
+                   bottom:0; left:0;
+                   width:100%;
+                   height:60px;
+                   background: red !important;" class="container-fluid" data-position="fixed">
+        <div class="col-md-12 navbar-default navbar-fixed-bottom" style="text-align: center;">
+            <span style="font-style: italic;">
+            <strong>FoodApp</strong>
+        </span>
+        </div>
+    </footer>
 </div>
